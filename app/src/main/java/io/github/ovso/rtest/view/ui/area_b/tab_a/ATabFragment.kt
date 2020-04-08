@@ -27,5 +27,4 @@ class ATabFragment : Fragment() {
     super.onActivityCreated(savedInstanceState)
     viewModel = ViewModelProvider(this).get(ATabViewModel::class.java)
   }
-
 }

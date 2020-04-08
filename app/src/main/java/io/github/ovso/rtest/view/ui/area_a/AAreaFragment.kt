@@ -1,12 +1,11 @@
 package io.github.ovso.rtest.view.ui.area_a
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import io.github.ovso.rtest.R
 
 class AAreaFragment : Fragment() {
@@ -26,7 +25,7 @@ class AAreaFragment : Fragment() {
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-    viewModel = ViewModelProviders.of(this).get(AAreaViewModel::class.java)
+    viewModel = ViewModelProvider(this).get(AAreaViewModel::class.java)
     // TODO: Use the ViewModel
   }
 

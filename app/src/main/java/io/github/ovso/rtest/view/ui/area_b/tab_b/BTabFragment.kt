@@ -1,12 +1,11 @@
 package io.github.ovso.rtest.view.ui.area_b.tab_b
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import io.github.ovso.rtest.R
 
 class BTabFragment : Fragment() {
@@ -26,8 +25,7 @@ class BTabFragment : Fragment() {
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-    viewModel = ViewModelProviders.of(this).get(BTabViewModel::class.java)
-    // TODO: Use the ViewModel
+    viewModel = ViewModelProvider(this).get(BTabViewModel::class.java)
   }
 
 }

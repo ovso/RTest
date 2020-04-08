@@ -6,10 +6,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
+const val BASE_URL = "https://api.github.com"
 
 abstract class BaseRepository<T>(
   private val baseUrl: String,
-  private val cls: Class<T>
+  private val cls: Class<T>,
+  private val token: String
 ) {
 
   fun api(): T = createRetrofit().create(cls)
@@ -34,6 +36,7 @@ abstract class BaseRepository<T>(
         val original = chain.request()
         val requestBuilder = original.newBuilder()
           .header("Content-Type", "application/json")
+          .addHeader("Authorization", "token $token")
         val request = requestBuilder.build()
         chain.proceed(request)
       }

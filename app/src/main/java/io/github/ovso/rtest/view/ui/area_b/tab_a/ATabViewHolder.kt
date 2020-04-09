@@ -1,5 +1,6 @@
 package io.github.ovso.rtest.view.ui.area_b.tab_a
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +19,7 @@ class ATabViewHolder private constructor(override val containerView: View?) :
   fun bind(item: Repo) {
     tv_a_tab_item.text =
       res.getString(R.string.a_tab_item_format, item.name, item.description, item.stargazers_count)
-
-
+    tv_a_tab_item.setTextColor(if (item.stargazers_count > 50) Color.RED else Color.DKGRAY)
   }
 
   companion object {
@@ -30,12 +30,3 @@ class ATabViewHolder private constructor(override val containerView: View?) :
     }
   }
 }
-
-/*
-    val text = tv_a_tab_item.resources.getString(
-      R.string.a_tab_item_format,
-      item.name,
-      item.description,
-      item.stargazers_count
-    )
-*/

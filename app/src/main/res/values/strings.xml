@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RTest</string>
+    <string name="a_tab_item_format">%s, %s, %d</string>
 </resources>

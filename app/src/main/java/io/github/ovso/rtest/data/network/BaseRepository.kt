@@ -2,6 +2,7 @@ package io.github.ovso.rtest.data.network
 
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -25,8 +26,6 @@ abstract class BaseRepository<T>(
   }
 
   private fun createClient(): OkHttpClient {
-
-
     val httpClient = OkHttpClient.Builder()
     with(httpClient) {
       readTimeout(TIMEOUT_SECONDS.toLong(), TimeUnit.SECONDS)
@@ -40,6 +39,7 @@ abstract class BaseRepository<T>(
         val request = requestBuilder.build()
         chain.proceed(request)
       }
+//      addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
     }
     return httpClient.build()
   }

@@ -1,5 +1,7 @@
 package io.github.ovso.rtest.view.ui.area_b.tab_a
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.github.ovso.rtest.data.network.GithubRepository
 import io.github.ovso.rtest.data.network.User
@@ -8,6 +10,7 @@ import io.github.ovso.rtest.utils.rx.SchedulerProvider
 
 class ATabViewModel : ViewModel() {
   private val repo by lazy { GithubRepository() }
+  private val items = MutableLiveData<List<Repo>>()
 
   init {
     reqRepos()
@@ -16,6 +19,7 @@ class ATabViewModel : ViewModel() {
   private fun reqRepos() {
     fun onSuccess(repos: List<Repo>) {
       println(repos.count())
+      items.value = repos
     }
 
     fun onFailure(t: Throwable) {
@@ -28,4 +32,6 @@ class ATabViewModel : ViewModel() {
       .observeOn(SchedulerProvider.ui())
       .subscribe(::onSuccess, ::onFailure)
   }
+
+  fun getItems():LiveData<List<Repo>> = items
 }

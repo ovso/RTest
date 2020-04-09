@@ -29,6 +29,23 @@ class Github {
       .subscribe(::onSuccess, ::onFailure)
   }
 
+  @Test
+  fun `깁허브 저장소에 스타를 준 stargazer 목록`() {
+
+    fun onSuccess(items: Any) {
+      println(items)
+    }
+
+    fun onFailure(t: Throwable) {
+      println(t.message)
+    }
+
+    repo.api().stargazers(User.name,"android-PermissionRequest")
+      .subscribeOn(SchedulerProvider.io())
+      .observeOn(SchedulerProvider.ui())
+      .subscribe(::onSuccess, ::onFailure)
+  }
+
 
   object SchedulerProvider {
     fun io(): Scheduler = Schedulers.trampoline()

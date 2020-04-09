@@ -13,4 +13,12 @@ interface GithubService {
     @Query("page") page: Int = 1,
     @Query("per_page") per_page: Int = 5
   ): Single<List<Repo>>
+
+  @GET("/repos/{user}/{repo}/stargazers")
+  fun stargazers(
+    @Path("user") user: String,
+    @Path("repo") repo: String,
+    @Query("page") page: Int = 1,
+    @Query("per_page") per_page: Int = 5
+  ): Single<Any>
 }

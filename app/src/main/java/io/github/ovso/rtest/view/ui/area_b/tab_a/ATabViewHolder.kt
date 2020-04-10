@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import io.github.ovso.rtest.R
 import io.github.ovso.rtest.data.network.model.ItemModel
 import io.github.ovso.rtest.data.network.model.Repo
+import io.github.ovso.rtest.exts.appContext
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_a_tab_fragment.*
 
@@ -16,11 +17,9 @@ class ATabViewHolder private constructor(override val containerView: View?) :
   RecyclerView.ViewHolder(containerView!!),
   LayoutContainer {
 
-  private val context: Context = itemView.context.applicationContext
-
   fun bind(item: ItemModel) {
     val repo = item.repo
-    tv_a_tab_item.text = toText(context, repo)
+    tv_a_tab_item.text = toText(itemView.appContext(), repo)
     tv_a_tab_item.setTextColor(toColor(repo))
   }
 

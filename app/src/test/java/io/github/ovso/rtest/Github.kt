@@ -4,14 +4,17 @@ package io.github.ovso.rtest
 
 import io.github.ovso.rtest.data.network.GithubRepository
 import io.github.ovso.rtest.data.network.User
+import io.github.ovso.rtest.data.network.model.ItemModel
 import io.github.ovso.rtest.data.network.model.Repo
 import io.github.ovso.rtest.data.network.model.Stargazer
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Scheduler
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.junit.Test
 
 class Github {
-  private val repo by lazy { GithubRepository() }
+  private val repository by lazy { GithubRepository() }
 
   @Test
   fun `깃허브 사용자 저장소 목록 가져오기`() {
@@ -24,7 +27,7 @@ class Github {
       println(t.message)
     }
 
-    repo.api().userRepos(User.name, 1, 3)
+    repository.api().userRepos(User.name, 1, 3)
       .subscribeOn(SchedulerProvider.io())
       .observeOn(SchedulerProvider.ui())
       .subscribe(::onSuccess, ::onFailure)
@@ -41,7 +44,7 @@ class Github {
       println(t.message)
     }
 
-    repo.api().stargazers(User.name, "android-PermissionRequest", 1, 3)
+    repository.api().stargazers(User.name, "android-PermissionRequest", 1, 3)
       .subscribeOn(SchedulerProvider.io())
       .observeOn(SchedulerProvider.ui())
       .subscribe(::onSuccess, ::onFailure)
@@ -58,6 +61,18 @@ class Github {
       println(t.message)
     }
 
+    fun reqStargazers(repo: Repo): Single<ItemModel> {
+      return repository.api()
+        .stargazers(user = User.name, repo = repo.name, page = 1, per_page = 3)
+        .map { ItemModel(repo, it) }
+    }
+    repository.api().userRepos(user = User.name, page = 1, per_page = 3)
+      .flatMapObservable { Observable.fromIterable(it) }
+      .flatMapSingle { reqStargazers(it) }
+      .toList()
+      .subscribeOn(SchedulerProvider.io())
+      .observeOn(SchedulerProvider.ui())
+      .subscribe(::onSuccess, ::onFailure)
   }
 
 
@@ -66,44 +81,3 @@ class Github {
     fun ui(): Scheduler = Schedulers.trampoline()
   }
 }
-
-/*
-
-    private fun reqAccountsAndBalance() {
-        prevAccountPosition = 0
-        fun onSuccess(_items: MutableList<Account>) {
-            itemsLive.value = mutableListOf<Account?>().apply { addAll(_items); add(null) }
-        }
-
-        fun onFailure(t: Throwable) {
-            itemsLive.value = mutableListOf<Account?>().apply { add(null) }
-            showErrorDialogLive.value = ((t as? HttpException)?.response()?.errorBody()?.string())
-        }
-
-        fun reqBalance(account: Account) =
-            accountBankRequest
-                .api()
-                .balance(
-                    account.bankCodeStd!!,
-                    account.accountNum!!
-                )
-                .map { account.apply { balance = it } }
-                .onErrorReturnItem(account)
-
-        compositeDisposable += accountBankRequest
-            .api()
-            .getAccounts()
-            .flatMapObservable { Observable.fromIterable(it) }
-            .flatMapSingle { reqBalance(it) }
-            .toList()
-            .doOnSubscribe { showLoading() }
-            .doOnError { hideLoading() }
-            .doOnSuccess { hideLoading() }
-            .subscribeOn(SchedulerProvider.io())
-            .observeOn(SchedulerProvider.ui())
-            .subscribe(::onSuccess, ::onFailure)
-    }
-
-
-
- */

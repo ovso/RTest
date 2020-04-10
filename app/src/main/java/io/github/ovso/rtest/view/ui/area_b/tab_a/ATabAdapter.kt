@@ -3,9 +3,9 @@ package io.github.ovso.rtest.view.ui.area_b.tab_a
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import io.github.ovso.rtest.data.network.model.RepoResponse
+import io.github.ovso.rtest.data.network.model.Repo
 
-class ATabAdapter : ListAdapter<RepoResponse, ATabViewHolder>(diffUtil) {
+class ATabAdapter : ListAdapter<Repo, ATabViewHolder>(diffUtil) {
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ATabViewHolder {
     return ATabViewHolder.create(parent)
   }
@@ -15,12 +15,12 @@ class ATabAdapter : ListAdapter<RepoResponse, ATabViewHolder>(diffUtil) {
   }
 }
 
-val diffUtil = object : DiffUtil.ItemCallback<RepoResponse>() {
-  override fun areItemsTheSame(oldItem: RepoResponse, newItem: RepoResponse): Boolean {
+val diffUtil = object : DiffUtil.ItemCallback<Repo>() {
+  override fun areItemsTheSame(oldItem: Repo, newItem: Repo): Boolean {
     return oldItem.id == oldItem.id
   }
 
-  override fun areContentsTheSame(oldItem: RepoResponse, newItem: RepoResponse): Boolean {
+  override fun areContentsTheSame(oldItem: Repo, newItem: Repo): Boolean {
     return areItemsTheSame(oldItem, newItem)
   }
 

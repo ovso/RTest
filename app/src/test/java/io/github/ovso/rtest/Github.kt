@@ -4,9 +4,8 @@ package io.github.ovso.rtest
 
 import io.github.ovso.rtest.data.network.GithubRepository
 import io.github.ovso.rtest.data.network.User
-import io.github.ovso.rtest.data.network.model.RepoResponse
-import io.github.ovso.rtest.data.network.model.StargazerResponse
-import io.reactivex.rxjava3.core.Observable
+import io.github.ovso.rtest.data.network.model.Repo
+import io.github.ovso.rtest.data.network.model.Stargazer
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.junit.Test
@@ -17,8 +16,8 @@ class Github {
   @Test
   fun `깃허브 사용자 저장소 목록 가져오기`() {
 
-    fun onSuccess(repoResponses: List<RepoResponse>) {
-      println(repoResponses.count())
+    fun onSuccess(repoRespons: List<Repo>) {
+      println(repoRespons.count())
     }
 
     fun onFailure(t: Throwable) {
@@ -34,7 +33,7 @@ class Github {
   @Test
   fun `깃허브 저장소에 스타를 준 stargazer 목록`() {
 
-    fun onSuccess(items: List<StargazerResponse>) {
+    fun onSuccess(items: List<Stargazer>) {
       println(items.size)
     }
 

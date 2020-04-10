@@ -2,7 +2,7 @@ package io.github.ovso.rtest.data.network.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Repo(
+data class RepoModel(
   @SerializedName("id")
   var id: Int,
   @SerializedName("name")

@@ -53,7 +53,7 @@ class Github {
   @Test
   fun `깃허브 사용자 저장소 목록과 목록별 스타게이저 정보 가져오기`() {
 
-    fun onSuccess(items: Any) {
+    fun onSuccess(items: List<ItemModel>) {
       println(items.toString())
     }
 

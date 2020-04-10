@@ -30,7 +30,7 @@ class ATabViewModel : ViewModel() {
 
     fun reqStargazers(repo: Repo): Single<ItemModel> {
       return repository.api()
-        .stargazers(user = User.name, repo = repo.name, page = 1, per_page = 3)
+        .stargazers(user = User.name, repo = repo.name, page = 1, per_page = 30)
         .map { ItemModel(repo, it) }
     }
     repository.api().userRepos(user = User.name, page = 1, per_page = 3)

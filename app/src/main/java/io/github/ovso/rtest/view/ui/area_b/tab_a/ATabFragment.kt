@@ -7,9 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import io.github.ovso.rtest.R
+import io.github.ovso.rtest.exts.vDivider
 import kotlinx.android.synthetic.main.fragment_tab_a.*
 
 class ATabFragment : Fragment() {
@@ -30,10 +29,7 @@ class ATabFragment : Fragment() {
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-    with(rv_a_tab) {
-      addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
-      adapter = this@ATabFragment.adapter
-    }
+    rv_a_tab.run { adapter = this@ATabFragment.adapter; vDivider() }
     viewModel = ViewModelProvider(this).get(ATabViewModel::class.java)
     observe()
   }

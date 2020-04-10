@@ -16,8 +16,8 @@ class Github {
   @Test
   fun `깃허브 사용자 저장소 목록 가져오기`() {
 
-    fun onSuccess(repoRespons: List<Repo>) {
-      println(repoRespons.count())
+    fun onSuccess(items: List<Repo>) {
+      println(items.count())
     }
 
     fun onFailure(t: Throwable) {

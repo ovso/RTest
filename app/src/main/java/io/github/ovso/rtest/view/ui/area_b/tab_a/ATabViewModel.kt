@@ -17,9 +17,9 @@ class ATabViewModel : ViewModel() {
   }
 
   private fun reqRepos() {
-    fun onSuccess(repoRespons: List<Repo>) {
-      println(repoRespons.count())
-      items.value = repoRespons
+    fun onSuccess(repos: List<Repo>) {
+      println(repos.count())
+      items.value = repos
     }
 
     fun onFailure(t: Throwable) {

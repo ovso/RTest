@@ -7,23 +7,52 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import io.github.ovso.rtest.R
-import io.github.ovso.rtest.data.network.model.ItemModel
+import io.github.ovso.rtest.data.network.GithubRepository
+import io.github.ovso.rtest.data.network.User
 import io.github.ovso.rtest.data.network.model.Repo
+import io.github.ovso.rtest.data.network.model.Stargazer
 import io.github.ovso.rtest.exts.appContext
 import io.github.ovso.rtest.exts.hDivider
+import io.github.ovso.rtest.utils.rx.SchedulerProvider
+import io.reactivex.rxjava3.annotations.NonNull
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_a_tab_fragment.*
 
 class ATabViewHolder private constructor(override val containerView: View?) :
   RecyclerView.ViewHolder(containerView!!),
   LayoutContainer {
-
-  fun bind(item: ItemModel) {
-    val repo = item.repo
+  private val compositeDisposable = CompositeDisposable()
+  private val repository = GithubRepository()
+  fun bind(repo: Repo) {
     tv_a_tab_item.text = toText(itemView.appContext(), repo)
     tv_a_tab_item.setTextColor(toColor(repo))
-    rv_a_tab_item.run { adapter = toAdapter(item);hDivider() }
+    reqStargazers(repo)
   }
+
+  private fun reqStargazers(repo: Repo) {
+    fun onSuccess(items: List<Stargazer>) {
+      println(items.size)
+      rv_a_tab_item.run { adapter = toAdapter(items);hDivider() }
+    }
+
+    fun onFailure(t: Throwable) {
+      println(t.message)
+    }
+
+    compositeDisposable += repository.api()
+      .stargazers(User.name, repo.name, 1, 30)
+      .subscribeOn(SchedulerProvider.io())
+      .observeOn(SchedulerProvider.ui())
+      .subscribe(::onSuccess, ::onFailure)
+  }
+
+  fun onViewRecycled() {
+    compositeDisposable.clear()
+    (rv_a_tab_item.adapter as? ATabItemAdapter)?.clear()
+  }
+
 
   companion object {
 
@@ -49,6 +78,10 @@ class ATabViewHolder private constructor(override val containerView: View?) :
       return if (repo.stargazers_count > 50) Color.RED else Color.DKGRAY
     }
 
-    fun toAdapter(item: ItemModel): ATabItemAdapter = ATabItemAdapter(item.stargazers)
+    fun toAdapter(stargazers: List<Stargazer>): ATabItemAdapter = ATabItemAdapter(stargazers)
   }
+}
+
+private operator fun CompositeDisposable.plusAssign(subscribe: @NonNull Disposable?) {
+  add(subscribe)
 }

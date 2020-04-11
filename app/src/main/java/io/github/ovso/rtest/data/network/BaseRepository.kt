@@ -39,7 +39,7 @@ abstract class BaseRepository<T>(
         val request = requestBuilder.build()
         chain.proceed(request)
       }
-      addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
+//      addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
     }
     return httpClient.build()
   }

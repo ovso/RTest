@@ -21,7 +21,6 @@ class ATabAdapter : ListAdapter<Repo, ATabViewHolder>(diffUtil) {
   }
 }
 
-
 class ATabPagedListAdapter : PagedListAdapter<Repo, ATabViewHolder>(diffUtil) {
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ATabViewHolder {
     return ATabViewHolder.create(parent)
@@ -37,7 +36,6 @@ class ATabPagedListAdapter : PagedListAdapter<Repo, ATabViewHolder>(diffUtil) {
   }
 }
 
-
 val diffUtil = object : DiffUtil.ItemCallback<Repo>() {
   override fun areItemsTheSame(oldItem: Repo, newItem: Repo): Boolean {
     return oldItem.id == newItem.id
@@ -46,5 +44,4 @@ val diffUtil = object : DiffUtil.ItemCallback<Repo>() {
   override fun areContentsTheSame(oldItem: Repo, newItem: Repo): Boolean {
     return areItemsTheSame(oldItem, newItem)
   }
-
 }

@@ -17,7 +17,8 @@ class BTabFragment : Fragment() {
   private lateinit var viewModel: BTabViewModel
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
     return inflater.inflate(R.layout.fragment_tab_b, container, false)
@@ -27,5 +28,4 @@ class BTabFragment : Fragment() {
     super.onActivityCreated(savedInstanceState)
     viewModel = ViewModelProvider(this).get(BTabViewModel::class.java)
   }
-
 }

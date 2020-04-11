@@ -14,9 +14,7 @@ import io.github.ovso.rtest.data.network.model.Stargazer
 import io.github.ovso.rtest.exts.appContext
 import io.github.ovso.rtest.exts.plusAssign
 import io.github.ovso.rtest.utils.rx.SchedulerProvider
-import io.reactivex.rxjava3.annotations.NonNull
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_a_tab_fragment.*
 
@@ -55,7 +53,6 @@ class ATabViewHolder private constructor(override val containerView: View?) :
     compositeDisposable.clear()
     (rv_a_tab_item.adapter as? ATabItemAdapter)?.clear()
   }
-
 
   companion object {
 

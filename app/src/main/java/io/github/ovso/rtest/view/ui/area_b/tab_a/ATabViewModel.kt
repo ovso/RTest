@@ -6,10 +6,7 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import io.github.ovso.rtest.data.datasource.ReposDataSourceFactory
 import io.github.ovso.rtest.data.network.GithubRepository
-import io.github.ovso.rtest.data.network.User
 import io.github.ovso.rtest.data.network.model.Repo
-import io.github.ovso.rtest.exts.plusAssign
-import io.github.ovso.rtest.utils.rx.SchedulerProvider
 import io.github.ovso.rtest.view.base.DisposableViewModel
 
 class ATabViewModel : DisposableViewModel() {

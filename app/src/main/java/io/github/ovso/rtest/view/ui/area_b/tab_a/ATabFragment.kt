@@ -20,7 +20,8 @@ class ATabFragment : Fragment() {
   private lateinit var viewModel: ATabViewModel
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
     return inflater.inflate(R.layout.fragment_tab_a, container, false)

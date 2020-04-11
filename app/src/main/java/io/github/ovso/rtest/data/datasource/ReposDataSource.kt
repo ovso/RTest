@@ -31,7 +31,6 @@ class ReposDataSource(
       .subscribeOn(SchedulerProvider.io())
       .observeOn(SchedulerProvider.ui())
       .subscribe(::onSuccess, ::onFailure)
-
   }
 
   override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Repo>) {
@@ -48,12 +47,7 @@ class ReposDataSource(
       .subscribeOn(SchedulerProvider.io())
       .observeOn(SchedulerProvider.ui())
       .subscribe(::onSuccess, ::onFailure)
-
-
   }
 
-  override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Repo>) {
-
-  }
-
+  override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Repo>) {}
 }

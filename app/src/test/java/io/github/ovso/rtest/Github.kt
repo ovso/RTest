@@ -75,7 +75,6 @@ class Github {
       .subscribe(::onSuccess, ::onFailure)
   }
 
-
   object SchedulerProvider {
     fun io(): Scheduler = Schedulers.trampoline()
     fun ui(): Scheduler = Schedulers.trampoline()

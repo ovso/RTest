@@ -14,7 +14,6 @@ class ATabItemAdapter(private var items: List<Stargazer>?) :
   override fun onBindViewHolder(holder: ATabItemViewHolder, position: Int) =
     holder.bind(getItem(position))
 
-
   private fun getItem(position: Int): Stargazer = items?.get(position) ?: Stargazer("", 0, "")
 
   fun clear() {

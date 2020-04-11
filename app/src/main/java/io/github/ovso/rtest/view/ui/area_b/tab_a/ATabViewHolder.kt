@@ -12,6 +12,7 @@ import io.github.ovso.rtest.data.network.User
 import io.github.ovso.rtest.data.network.model.Repo
 import io.github.ovso.rtest.data.network.model.Stargazer
 import io.github.ovso.rtest.exts.appContext
+import io.github.ovso.rtest.exts.plusAssign
 import io.github.ovso.rtest.utils.rx.SchedulerProvider
 import io.reactivex.rxjava3.annotations.NonNull
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -24,10 +25,13 @@ class ATabViewHolder private constructor(override val containerView: View?) :
   LayoutContainer {
   private val compositeDisposable = CompositeDisposable()
   private val repository = GithubRepository()
-  fun bind(repo: Repo) {
-    tv_a_tab_item.text = toText(itemView.appContext(), repo)
-    tv_a_tab_item.setTextColor(toColor(repo))
-    reqStargazers(repo)
+
+  fun bind(repo: Repo?) {
+    repo?.let {
+      tv_a_tab_item.text = toText(itemView.appContext(), repo)
+      tv_a_tab_item.setTextColor(toColor(repo))
+      reqStargazers(repo)
+    }
   }
 
   private fun reqStargazers(repo: Repo) {
@@ -79,8 +83,4 @@ class ATabViewHolder private constructor(override val containerView: View?) :
 
     fun toAdapter(stargazers: List<Stargazer>): ATabItemAdapter = ATabItemAdapter(stargazers)
   }
-}
-
-private operator fun CompositeDisposable.plusAssign(subscribe: @NonNull Disposable?) {
-  add(subscribe)
 }

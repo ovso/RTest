@@ -2,18 +2,33 @@ package io.github.ovso.rtest.view.ui.area_b.tab_a
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import io.github.ovso.rtest.data.datasource.ReposDataSourceFactory
 import io.github.ovso.rtest.data.network.GithubRepository
 import io.github.ovso.rtest.data.network.User
 import io.github.ovso.rtest.data.network.model.Repo
+import io.github.ovso.rtest.exts.plusAssign
 import io.github.ovso.rtest.utils.rx.SchedulerProvider
+import io.github.ovso.rtest.view.base.DisposableViewModel
 
-class ATabViewModel : ViewModel() {
+class ATabViewModel : DisposableViewModel() {
   private val repository by lazy { GithubRepository() }
   private val items = MutableLiveData<List<Repo>>()
 
+  private var repoList: LiveData<PagedList<Repo>>
+  private val pageSize = 15
+  private var sourceFactory: ReposDataSourceFactory
+
   init {
-    reqItems()
+    sourceFactory = ReposDataSourceFactory(compositeDisposable, repository)
+    val config = PagedList.Config.Builder()
+      .setPageSize(30)
+      .setInitialLoadSizeHint(30)
+      .setEnablePlaceholders(false)
+      .build()
+    repoList = LivePagedListBuilder(sourceFactory, config).build()
+//    reqItems()
   }
 
   private fun reqItems() {
@@ -25,12 +40,12 @@ class ATabViewModel : ViewModel() {
       println(t.message)
     }
 
-    repository.api().userRepos(User.name, 1, 30)
+    compositeDisposable += repository.api().userRepos(User.name, 1, 30)
       .subscribeOn(SchedulerProvider.io())
       .observeOn(SchedulerProvider.ui())
       .subscribe(::onSuccess, ::onFailure)
 
   }
 
-  fun getItems():LiveData<List<Repo>> = items
+  fun getItems(): LiveData<PagedList<Repo>> = repoList
 }

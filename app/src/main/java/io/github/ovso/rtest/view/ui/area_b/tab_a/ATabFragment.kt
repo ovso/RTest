@@ -16,7 +16,7 @@ class ATabFragment : Fragment() {
     fun newInstance() = ATabFragment()
   }
 
-  private val adapter by lazy { ATabAdapter() }
+  private val adapter by lazy { ATabPagedListAdapter() }
   private lateinit var viewModel: ATabViewModel
 
   override fun onCreateView(

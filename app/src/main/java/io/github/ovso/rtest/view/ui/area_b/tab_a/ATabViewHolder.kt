@@ -12,7 +12,6 @@ import io.github.ovso.rtest.data.network.User
 import io.github.ovso.rtest.data.network.model.Repo
 import io.github.ovso.rtest.data.network.model.Stargazer
 import io.github.ovso.rtest.exts.appContext
-import io.github.ovso.rtest.exts.hDivider
 import io.github.ovso.rtest.utils.rx.SchedulerProvider
 import io.reactivex.rxjava3.annotations.NonNull
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -34,7 +33,7 @@ class ATabViewHolder private constructor(override val containerView: View?) :
   private fun reqStargazers(repo: Repo) {
     fun onSuccess(items: List<Stargazer>) {
       println(items.size)
-      rv_a_tab_item.run { adapter = toAdapter(items);hDivider() }
+      rv_a_tab_item.adapter = toAdapter(items)
     }
 
     fun onFailure(t: Throwable) {

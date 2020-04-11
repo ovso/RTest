@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import io.github.ovso.rtest.R
-import io.github.ovso.rtest.exts.vDivider
 import kotlinx.android.synthetic.main.fragment_tab_a.*
 
 class ATabFragment : Fragment() {
@@ -29,7 +28,7 @@ class ATabFragment : Fragment() {
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-    rv_a_tab.run { adapter = this@ATabFragment.adapter; vDivider() }
+    rv_a_tab.adapter = this@ATabFragment.adapter
     viewModel = ViewModelProvider(this).get(ATabViewModel::class.java)
     observe()
   }

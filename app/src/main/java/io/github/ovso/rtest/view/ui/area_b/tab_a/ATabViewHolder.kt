@@ -5,15 +5,14 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
 import io.github.ovso.rtest.R
+import io.github.ovso.rtest.data.datasource.StargazersDataSourceFactory
 import io.github.ovso.rtest.data.network.GithubRepository
-import io.github.ovso.rtest.data.network.User
 import io.github.ovso.rtest.data.network.model.Repo
-import io.github.ovso.rtest.data.network.model.Stargazer
 import io.github.ovso.rtest.exts.appContext
-import io.github.ovso.rtest.exts.plusAssign
-import io.github.ovso.rtest.utils.rx.SchedulerProvider
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_a_tab_fragment.*
@@ -23,30 +22,29 @@ class ATabViewHolder private constructor(override val containerView: View?) :
   LayoutContainer {
   private val compositeDisposable = CompositeDisposable()
   private val repository = GithubRepository()
+  private var adapter: ATabItemPagedListAdapter? = null
 
   fun bind(repo: Repo?) {
+    adapter = ATabItemPagedListAdapter()
     repo?.let {
       tv_a_tab_item.text = toText(itemView.appContext(), repo)
       tv_a_tab_item.setTextColor(toColor(repo))
+      rv_a_tab_item.adapter = adapter
       reqStargazers(repo)
     }
   }
 
   private fun reqStargazers(repo: Repo) {
-    fun onSuccess(items: List<Stargazer>) {
-      println(items.size)
-      rv_a_tab_item.adapter = toAdapter(items)
+    val sourceFactory = StargazersDataSourceFactory(compositeDisposable, repository, repo.name)
+    val config = PagedList.Config.Builder()
+      .setPageSize(30)
+      .setInitialLoadSizeHint(30)
+      .setEnablePlaceholders(false)
+      .build()
+    val stargazerList = LivePagedListBuilder(sourceFactory, config).build()
+    stargazerList.observeForever {
+      adapter?.submitList(it)
     }
-
-    fun onFailure(t: Throwable) {
-      println(t.message)
-    }
-
-    compositeDisposable += repository.api()
-      .stargazers(User.name, repo.name, 1, 30)
-      .subscribeOn(SchedulerProvider.io())
-      .observeOn(SchedulerProvider.ui())
-      .subscribe(::onSuccess, ::onFailure)
   }
 
   fun onViewRecycled() {
@@ -77,7 +75,5 @@ class ATabViewHolder private constructor(override val containerView: View?) :
     fun toColor(repo: Repo): Int {
       return if (repo.stargazers_count > 50) Color.RED else Color.DKGRAY
     }
-
-    fun toAdapter(stargazers: List<Stargazer>): ATabItemAdapter = ATabItemAdapter(stargazers)
   }
 }

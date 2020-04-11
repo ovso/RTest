@@ -13,9 +13,15 @@ import kotlinx.android.synthetic.main.item_a_tab_fragment_item.*
 class ATabItemViewHolder private constructor(override val containerView: View?) :
   RecyclerView.ViewHolder(containerView!!), LayoutContainer {
 
-  fun bind(stargazer: Stargazer) {
-    iv_a_tab_item_item.load(stargazer.avatarUrl)
-    tv_a_tab_item_item.text = stargazer.login
+  fun bind(stargazer: Stargazer?) {
+    stargazer?.let {
+      iv_a_tab_item_item.load(stargazer.avatarUrl)
+      tv_a_tab_item_item.text = stargazer.login
+    }
+  }
+
+  fun onViewRecycled() {
+
   }
 
   companion object {

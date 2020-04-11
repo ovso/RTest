@@ -1,12 +1,16 @@
 package io.github.ovso.rtest.view.ui.area_b.tab_b
 
-import androidx.lifecycle.LiveData
+import android.util.SparseArray
 import androidx.lifecycle.ViewModel
-import androidx.paging.PagedList
 import io.github.ovso.rtest.data.network.GithubRepository
-import io.github.ovso.rtest.data.network.model.Repo
+import io.github.ovso.rtest.data.network.model.BRepo
+import io.github.ovso.rtest.data.network.model.BStargazer
 
 class BTabViewModel : ViewModel() {
   private val repository by lazy { GithubRepository() }
 
+  companion object {
+    val stargazersSparseArray = SparseArray<MutableList<BStargazer>>()
+    val reposSparseArray = SparseArray<MutableList<BRepo>>()
+  }
 }

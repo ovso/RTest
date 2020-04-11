@@ -2,7 +2,7 @@ package io.github.ovso.rtest.data.network.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Repo(
+data class BRepo(
   @SerializedName("id")
   val id: Int,
   @SerializedName("name")
@@ -12,10 +12,10 @@ data class Repo(
   @SerializedName("stargazers_count")
   val stargazers_count: Int,
   @SerializedName("owner")
-  val owner: Owner
+  val owner: BOwner
 )
 
-data class Owner(
+data class BOwner(
   @SerializedName("avatar_url")
   val avatar_url: String
 )

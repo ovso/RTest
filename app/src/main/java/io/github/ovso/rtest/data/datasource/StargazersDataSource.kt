@@ -18,10 +18,10 @@ class StargazersDataSource(
     params: LoadInitialParams<Int>,
     callback: LoadInitialCallback<Int, Stargazer>
   ) {
-    val pageKey = 0
+    val pageKey = 1
     fun onSuccess(stargazers: List<Stargazer>) {
       callback.onResult(stargazers, pageKey, pageKey + 1)
-      ShareModel.addStargazers(pageKey, stargazers)
+      ShareModel.addStargazers(stargazers)
     }
 
     compositeDisposable += repository.api().stargazers(User.name, repoName, pageKey, 30)
@@ -34,7 +34,7 @@ class StargazersDataSource(
 
     fun onSuccess(stargazers: List<Stargazer>) {
       callback.onResult(stargazers, params.key + 1)
-      ShareModel.addStargazers(params.key, stargazers)
+      ShareModel.addStargazers(stargazers)
     }
 
     compositeDisposable += repository.api().stargazers(User.name, repoName, params.key, 50)

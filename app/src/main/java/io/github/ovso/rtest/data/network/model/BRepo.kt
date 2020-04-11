@@ -8,7 +8,7 @@ data class BRepo(
   @SerializedName("name")
   val name: String,
   @SerializedName("description")
-  val description: String,
+  val description: String?,
   @SerializedName("stargazers_count")
   val stargazers_count: Int,
   @SerializedName("owner")

@@ -18,10 +18,10 @@ class ReposDataSource(
     callback: LoadInitialCallback<Int, Repo>
   ) {
 
-    val pageKey = 0
+    val pageKey = 1
     fun onSuccess(repos: List<Repo>) {
       callback.onResult(repos, pageKey, pageKey + 1)
-      ShareModel.addRepos(pageKey, repos)
+      ShareModel.addRepos(repos)
     }
 
     compositeDisposable += repository.api().userRepos(User.name, pageKey, 30)
@@ -34,7 +34,7 @@ class ReposDataSource(
 
     fun onSuccess(repos: List<Repo>) {
       callback.onResult(repos, params.key + 1)
-      ShareModel.addRepos(params.key, repos)
+      ShareModel.addRepos(repos)
     }
 
     compositeDisposable += repository.api().userRepos(User.name, params.key, 30)

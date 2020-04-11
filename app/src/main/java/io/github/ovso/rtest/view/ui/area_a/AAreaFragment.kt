@@ -17,7 +17,8 @@ class AAreaFragment : Fragment() {
   private lateinit var viewModel: AAreaViewModel
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
     return inflater.inflate(R.layout.fragment_area_a, container, false)
@@ -28,5 +29,4 @@ class AAreaFragment : Fragment() {
     viewModel = ViewModelProvider(this).get(AAreaViewModel::class.java)
     // TODO: Use the ViewModel
   }
-
 }

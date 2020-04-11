@@ -1,4 +1,4 @@
-package io.github.ovso.rtest.view.ui.area_b.tab_a
+package io.github.ovso.rtest.view.ui.area_b.tab_b
 
 import android.content.Context
 import android.graphics.Color
@@ -19,15 +19,15 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_a_tab_fragment.*
 
-class ATabViewHolder private constructor(override val containerView: View?) :
+class BTabViewHolder private constructor(override val containerView: View?) :
   RecyclerView.ViewHolder(containerView!!),
   LayoutContainer {
   private val compositeDisposable = CompositeDisposable()
   private val repository = GithubRepository()
-  private var adapter: ATabItemPagedListAdapter? = null
+  private var adapter: BTabItemPagedListAdapter? = null
 
   fun bind(repo: Repo?) {
-    adapter = ATabItemPagedListAdapter()
+    adapter = BTabItemPagedListAdapter()
     repo?.let {
       tv_a_tab_item.text = toText(itemView.appContext(), repo)
       tv_a_tab_item.setTextColor(toColor(repo))
@@ -58,8 +58,8 @@ class ATabViewHolder private constructor(override val containerView: View?) :
 
   companion object {
 
-    fun create(parent: ViewGroup): ATabViewHolder {
-      return ATabViewHolder(
+    fun create(parent: ViewGroup): BTabViewHolder {
+      return BTabViewHolder(
         LayoutInflater.from(parent.context).inflate(
           R.layout.item_a_tab_fragment,
           parent,

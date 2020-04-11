@@ -1,4 +1,4 @@
-package io.github.ovso.rtest.view.ui.area_b.tab_a
+package io.github.ovso.rtest.view.ui.area_b.tab_b
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +10,7 @@ import io.github.ovso.rtest.exts.load
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_a_tab_fragment_item.*
 
-class ATabItemViewHolder private constructor(override val containerView: View?) :
+class BTabItemViewHolder private constructor(override val containerView: View?) :
   RecyclerView.ViewHolder(containerView!!), LayoutContainer {
 
   fun bind(stargazer: Stargazer?) {
@@ -25,8 +25,8 @@ class ATabItemViewHolder private constructor(override val containerView: View?) 
   }
 
   companion object {
-    fun create(parent: ViewGroup): ATabItemViewHolder {
-      return ATabItemViewHolder(
+    fun create(parent: ViewGroup): BTabItemViewHolder {
+      return BTabItemViewHolder(
         LayoutInflater.from(parent.context)
           .inflate(R.layout.item_a_tab_fragment_item, parent, false)
       )

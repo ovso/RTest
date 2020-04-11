@@ -1,6 +1,5 @@
 package io.github.ovso.rtest.data.network.model
 
-
 import com.google.gson.annotations.SerializedName
 
 data class Stargazer(

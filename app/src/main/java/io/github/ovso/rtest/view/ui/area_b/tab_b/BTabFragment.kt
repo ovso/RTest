@@ -35,7 +35,7 @@ class BTabFragment : Fragment() {
   }
 
   private fun observe() {
-    viewModel.getItems()?.observe(viewLifecycleOwner, Observer {
+    viewModel.bStargazerList?.observe(this, Observer {
       adapter.submitList(it)
     })
   }

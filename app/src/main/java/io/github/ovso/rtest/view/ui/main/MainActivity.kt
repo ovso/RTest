@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
       addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
         override fun onPageSelected(position: Int) {
           super.onPageSelected(position)
-          RxBus.send(ShareModel.LoadInitial())
+          if (position == 1) RxBus.send(ShareModel.LoadInitial())
         }
       })
       tl_main.setupWithViewPager(this)

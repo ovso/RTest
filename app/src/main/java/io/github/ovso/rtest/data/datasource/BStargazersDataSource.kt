@@ -10,7 +10,6 @@ class BStargazersDataSource(
 ) : PositionalDataSource<BStargazer>() {
 
   override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<BStargazer>) {
-
     val position = 0
     val subList =
       ShareModel.bStargazers.subList(position, position + (params.pageSize - 1)) // 0 ~ 29

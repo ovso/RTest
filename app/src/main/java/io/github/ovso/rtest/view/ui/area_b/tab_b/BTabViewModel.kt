@@ -15,10 +15,10 @@ class BTabViewModel : DisposableViewModel() {
 
   private var sourceFactory: BStargazersDataSourceFactory =
     BStargazersDataSourceFactory(compositeDisposable)
-  private var bStargazerList: LiveData<PagedList<BStargazer>>? = null
+  var bStargazerList: LiveData<PagedList<BStargazer>>? = null
 
   init {
-    observe()
+//    observe()
   }
 
   private fun observe() {
@@ -27,14 +27,12 @@ class BTabViewModel : DisposableViewModel() {
       .observeOn(SchedulerProvider.ui())
       .subscribe {
         if (it is ShareModel.LoadInitial && ShareModel.bStargazers.count() > 0) {
-          bStargazerList?.let {
-            val config = PagedList.Config.Builder()
-              .setPageSize(30)
-              .setInitialLoadSizeHint(30)
-              .setEnablePlaceholders(false)
-              .build()
-            bStargazerList = LivePagedListBuilder(sourceFactory, config).build()
-          }
+          val config = PagedList.Config.Builder()
+            .setPageSize(30)
+            .setInitialLoadSizeHint(30)
+            .setEnablePlaceholders(false)
+            .build()
+          bStargazerList = LivePagedListBuilder(sourceFactory, config).build()
         }
       }
   }

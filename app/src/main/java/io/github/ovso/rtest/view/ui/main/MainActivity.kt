@@ -10,6 +10,7 @@ class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
+    supportActionBar?.hide()
     vp_main.adapter = MainPagerAdapter(
       resources.getStringArray(R.array.tab_names),
       supportFragmentManager

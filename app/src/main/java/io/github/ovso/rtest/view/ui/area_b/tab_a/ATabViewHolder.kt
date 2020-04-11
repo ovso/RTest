@@ -5,6 +5,8 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
@@ -34,6 +36,8 @@ class ATabViewHolder private constructor(override val containerView: View?) :
     }
   }
 
+  private fun getLifecycleOwner(v: View): LifecycleOwner? = (v.context as? LifecycleOwner)
+
   private fun reqStargazers(repo: Repo) {
     val sourceFactory = StargazersDataSourceFactory(compositeDisposable, repository, repo.name)
     val config = PagedList.Config.Builder()
@@ -41,15 +45,15 @@ class ATabViewHolder private constructor(override val containerView: View?) :
       .setInitialLoadSizeHint(30)
       .setEnablePlaceholders(false)
       .build()
-    val stargazerList = LivePagedListBuilder(sourceFactory, config).build()
-    stargazerList.observeForever {
-      adapter?.submitList(it)
+    getLifecycleOwner(itemView)?.let { owner ->
+      LivePagedListBuilder(sourceFactory, config).build().observe(owner, Observer {
+        adapter?.submitList(it)
+      })
     }
   }
 
   fun onViewRecycled() {
     compositeDisposable.clear()
-    (rv_a_tab_item.adapter as? ATabItemAdapter)?.clear()
   }
 
   companion object {

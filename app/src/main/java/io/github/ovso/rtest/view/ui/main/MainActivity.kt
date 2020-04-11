@@ -2,6 +2,9 @@ package io.github.ovso.rtest.view.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import io.github.ovso.rtest.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -16,5 +19,8 @@ class MainActivity : AppCompatActivity() {
       supportFragmentManager
     )
     tl_main.setupWithViewPager(vp_main)
+
+    val a = MutableLiveData<Boolean>()
+    a.observe(this, Observer {  })
   }
 }

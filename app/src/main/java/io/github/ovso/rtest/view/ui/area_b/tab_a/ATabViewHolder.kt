@@ -15,6 +15,8 @@ import io.github.ovso.rtest.data.datasource.StargazersDataSourceFactory
 import io.github.ovso.rtest.data.network.GithubRepository
 import io.github.ovso.rtest.data.network.model.Repo
 import io.github.ovso.rtest.exts.appContext
+import io.github.ovso.rtest.utils.rx.RxBus
+import io.github.ovso.rtest.view.ui.area_a.AAreaViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_a_tab_fragment.*
@@ -32,7 +34,19 @@ class ATabViewHolder private constructor(override val containerView: View?) :
       tv_a_tab_item.text = toText(itemView.appContext(), repo)
       tv_a_tab_item.setTextColor(toColor(repo))
       rv_a_tab_item.adapter = adapter
+      setClickEvent(repo)
       reqStargazers(repo)
+    }
+  }
+
+  private fun setClickEvent(repo: Repo) {
+    itemView.setOnClickListener {
+      RxBus.send(
+        AAreaViewModel.AAreaModel(
+          repo.owner.avatar_url,
+          repo.name
+        )
+      )
     }
   }
 
@@ -80,4 +94,8 @@ class ATabViewHolder private constructor(override val containerView: View?) :
       return if (repo.stargazers_count > 50) Color.RED else Color.DKGRAY
     }
   }
+}
+
+fun RecyclerView.ViewHolder.aaa() {
+  this.itemView.appContext()
 }

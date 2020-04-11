@@ -4,15 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import io.github.ovso.rtest.R
+import io.github.ovso.rtest.databinding.FragmentAreaABinding
 
 class AAreaFragment : Fragment() {
-
-  companion object {
-    fun newInstance() = AAreaFragment()
-  }
 
   private lateinit var viewModel: AAreaViewModel
 
@@ -20,13 +18,19 @@ class AAreaFragment : Fragment() {
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.fragment_area_a, container, false)
-  }
+  ): View? = getBinding(inflater, container).root
 
-  override fun onActivityCreated(savedInstanceState: Bundle?) {
-    super.onActivityCreated(savedInstanceState)
-    viewModel = ViewModelProvider(this).get(AAreaViewModel::class.java)
-    // TODO: Use the ViewModel
+  private fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentAreaABinding {
+    val owner = this
+    viewModel = ViewModelProvider(owner).get(AAreaViewModel::class.java)
+    return DataBindingUtil.inflate<FragmentAreaABinding>(
+      inflater,
+      R.layout.fragment_area_a,
+      container,
+      false
+    ).apply {
+      viewModel = owner.viewModel
+      lifecycleOwner = owner
+    }
   }
 }

@@ -7,27 +7,26 @@ import io.github.ovso.rtest.data.network.model.Repo
 import io.github.ovso.rtest.exts.plusAssign
 import io.github.ovso.rtest.utils.rx.SchedulerProvider
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import java.util.concurrent.atomic.AtomicInteger
 
 class ReposDataSource(
   private val compositeDisposable: CompositeDisposable,
   private val repository: GithubRepository
 ) : PageKeyedDataSource<Int, Repo>() {
-  private val pageKey = AtomicInteger(1)
   override fun loadInitial(
     params: LoadInitialParams<Int>,
     callback: LoadInitialCallback<Int, Repo>
   ) {
 
+    val pageKey = 0
     fun onSuccess(repos: List<Repo>) {
-      callback.onResult(repos, pageKey.get(), pageKey.incrementAndGet())
+      callback.onResult(repos, pageKey, pageKey + 1)
     }
 
     fun onFailure(t: Throwable) {
       println(t.message)
     }
 
-    compositeDisposable += repository.api().userRepos(User.name, pageKey.get(), 30)
+    compositeDisposable += repository.api().userRepos(User.name, pageKey, 30)
       .subscribeOn(SchedulerProvider.io())
       .observeOn(SchedulerProvider.ui())
       .subscribe(::onSuccess, ::onFailure)
@@ -36,14 +35,14 @@ class ReposDataSource(
   override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Repo>) {
 
     fun onSuccess(repos: List<Repo>) {
-      callback.onResult(repos, pageKey.incrementAndGet())
+      callback.onResult(repos, params.key + 1)
     }
 
     fun onFailure(t: Throwable) {
       println(t.message)
     }
 
-    compositeDisposable += repository.api().userRepos(User.name, pageKey.get(), 30)
+    compositeDisposable += repository.api().userRepos(User.name, params.key, 30)
       .subscribeOn(SchedulerProvider.io())
       .observeOn(SchedulerProvider.ui())
       .subscribe(::onSuccess, ::onFailure)

@@ -31,6 +31,10 @@ class ATabPagedListAdapter : PagedListAdapter<Repo, ATabViewHolder>(diffUtil) {
     holder.bind(getItem(position))
   }
 
+  override fun onViewRecycled(holder: ATabViewHolder) {
+    super.onViewRecycled(holder)
+    holder.onViewRecycled()
+  }
 }
 
 

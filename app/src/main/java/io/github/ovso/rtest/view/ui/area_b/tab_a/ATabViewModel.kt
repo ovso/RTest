@@ -17,7 +17,6 @@ class ATabViewModel : DisposableViewModel() {
   private val items = MutableLiveData<List<Repo>>()
 
   private var repoList: LiveData<PagedList<Repo>>
-  private val pageSize = 15
   private var sourceFactory: ReposDataSourceFactory
 
   init {
@@ -28,23 +27,6 @@ class ATabViewModel : DisposableViewModel() {
       .setEnablePlaceholders(false)
       .build()
     repoList = LivePagedListBuilder(sourceFactory, config).build()
-//    reqItems()
-  }
-
-  private fun reqItems() {
-    fun onSuccess(_items: List<Repo>) {
-      items.value = _items
-    }
-
-    fun onFailure(t: Throwable) {
-      println(t.message)
-    }
-
-    compositeDisposable += repository.api().userRepos(User.name, 1, 30)
-      .subscribeOn(SchedulerProvider.io())
-      .observeOn(SchedulerProvider.ui())
-      .subscribe(::onSuccess, ::onFailure)
-
   }
 
   fun getItems(): LiveData<PagedList<Repo>> = repoList

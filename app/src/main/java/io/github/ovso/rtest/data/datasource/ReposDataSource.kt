@@ -18,6 +18,7 @@ class ReposDataSource(
     params: LoadInitialParams<Int>,
     callback: LoadInitialCallback<Int, Repo>
   ) {
+
     fun onSuccess(repos: List<Repo>) {
       callback.onResult(repos, pageKey.get(), pageKey.incrementAndGet())
     }
@@ -25,7 +26,6 @@ class ReposDataSource(
     fun onFailure(t: Throwable) {
       println(t.message)
     }
-
 
     compositeDisposable += repository.api().userRepos(User.name, pageKey.get(), 30)
       .subscribeOn(SchedulerProvider.io())
@@ -35,6 +35,21 @@ class ReposDataSource(
   }
 
   override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Repo>) {
+
+    fun onSuccess(repos: List<Repo>) {
+      callback.onResult(repos, pageKey.incrementAndGet())
+    }
+
+    fun onFailure(t: Throwable) {
+      println(t.message)
+    }
+
+    compositeDisposable += repository.api().userRepos(User.name, pageKey.get(), 30)
+      .subscribeOn(SchedulerProvider.io())
+      .observeOn(SchedulerProvider.ui())
+      .subscribe(::onSuccess, ::onFailure)
+
+
   }
 
   override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Repo>) {

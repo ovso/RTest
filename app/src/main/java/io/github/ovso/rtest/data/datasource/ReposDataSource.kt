@@ -18,7 +18,7 @@ class ReposDataSource(
     callback: LoadInitialCallback<Int, Repo>
   ) {
 
-    val pageKey = 1
+    val pageKey = 0
     fun onSuccess(repos: List<Repo>) {
       callback.onResult(repos, pageKey, pageKey + 1)
       ShareModel.addRepos(repos)

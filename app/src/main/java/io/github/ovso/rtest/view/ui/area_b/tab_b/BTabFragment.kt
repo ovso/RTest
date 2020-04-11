@@ -8,12 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import io.github.ovso.rtest.R
+import kotlinx.android.synthetic.main.fragment_tab_b.*
 
 class BTabFragment : Fragment() {
 
   companion object {
     fun newInstance() = BTabFragment()
   }
+
   private val adapter by lazy { BTabPagedListAdapter() }
   private lateinit var viewModel: BTabViewModel
 
@@ -28,12 +30,13 @@ class BTabFragment : Fragment() {
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
     viewModel = ViewModelProvider(this).get(BTabViewModel::class.java)
+    rv_b_tab.adapter = adapter
     observe()
   }
 
   private fun observe() {
-//    viewModel.getItems().observe(viewLifecycleOwner, Observer {
-//      adapter.submitList(it)
-//    })
+    viewModel.getItems()?.observe(viewLifecycleOwner, Observer {
+      adapter.submitList(it)
+    })
   }
 }

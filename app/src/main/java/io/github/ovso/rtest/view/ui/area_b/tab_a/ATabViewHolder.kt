@@ -82,7 +82,7 @@ class ATabViewHolder private constructor(override val containerView: View?) :
       )
     }
 
-    fun toText(context: Context, repo: Repo) =
+    private fun toText(context: Context, repo: Repo) =
       context.getString(
         R.string.a_tab_item_format,
         repo.name,
@@ -90,12 +90,8 @@ class ATabViewHolder private constructor(override val containerView: View?) :
         repo.stargazers_count
       )
 
-    fun toColor(repo: Repo): Int {
+    private fun toColor(repo: Repo): Int {
       return if (repo.stargazers_count > 50) Color.RED else Color.DKGRAY
     }
   }
-}
-
-fun RecyclerView.ViewHolder.aaa() {
-  this.itemView.appContext()
 }

@@ -22,14 +22,10 @@ class ReposDataSource(
       callback.onResult(repos, pageKey, pageKey + 1)
     }
 
-    fun onFailure(t: Throwable) {
-      println(t.message)
-    }
-
     compositeDisposable += repository.api().userRepos(User.name, pageKey, 30)
       .subscribeOn(SchedulerProvider.io())
       .observeOn(SchedulerProvider.ui())
-      .subscribe(::onSuccess, ::onFailure)
+      .subscribe(::onSuccess) { println(it) }
   }
 
   override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Repo>) {
@@ -38,14 +34,10 @@ class ReposDataSource(
       callback.onResult(repos, params.key + 1)
     }
 
-    fun onFailure(t: Throwable) {
-      println(t.message)
-    }
-
     compositeDisposable += repository.api().userRepos(User.name, params.key, 30)
       .subscribeOn(SchedulerProvider.io())
       .observeOn(SchedulerProvider.ui())
-      .subscribe(::onSuccess, ::onFailure)
+      .subscribe(::onSuccess) { println(it) }
   }
 
   override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Repo>) {}

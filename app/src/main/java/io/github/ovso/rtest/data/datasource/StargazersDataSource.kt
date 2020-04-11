@@ -19,18 +19,14 @@ class StargazersDataSource(
   ) {
 
     val pageKey = 0
-    fun onSuccess(items: List<Stargazer>) {
-      callback.onResult(items, pageKey, pageKey + 1)
-    }
-
-    fun onFailure(t: Throwable) {
-      println(t.message)
+    fun onSuccess(stargazers: List<Stargazer>) {
+      callback.onResult(stargazers, pageKey, pageKey + 1)
     }
 
     compositeDisposable += repository.api().stargazers(User.name, repoName, pageKey, 30)
       .subscribeOn(SchedulerProvider.io())
       .observeOn(SchedulerProvider.ui())
-      .subscribe(::onSuccess, ::onFailure)
+      .subscribe(::onSuccess) { println(it) }
   }
 
   override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Stargazer>) {
@@ -39,14 +35,10 @@ class StargazersDataSource(
       callback.onResult(stargazers, params.key + 1)
     }
 
-    fun onFailure(t: Throwable) {
-      println(t.message)
-    }
-
     compositeDisposable += repository.api().stargazers(User.name, repoName, params.key, 50)
       .subscribeOn(SchedulerProvider.io())
       .observeOn(SchedulerProvider.ui())
-      .subscribe(::onSuccess, ::onFailure)
+      .subscribe(::onSuccess) { println(it) }
   }
 
   override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Stargazer>) {}

@@ -1,17 +1,12 @@
 package io.github.ovso.rtest.data.network.model
 
-import android.util.SparseArray
-import java.util.concurrent.atomic.AtomicInteger
-
 object ShareModel {
-  private val stargazersPageKey = AtomicInteger(0)
-  private val reposPageKey = AtomicInteger(0)
-  val stargazersSparseArray = SparseArray<List<BStargazer>>()
-  val reposSparseArray = SparseArray<List<BRepo>>()
+
+  val bStargazers = mutableListOf<BStargazer>()
+  val bRepos = mutableListOf<BRepo>()
 
   fun addStargazers(stargazers: List<Stargazer>) {
     Thread {
-      val bStargazers = mutableListOf<BStargazer>()
       stargazers.forEach {
         bStargazers.add(
           BStargazer(
@@ -21,13 +16,11 @@ object ShareModel {
           )
         )
       }
-      stargazersSparseArray.append(stargazersPageKey.getAndIncrement(), bStargazers)
     }.start()
   }
 
   fun addRepos(repos: List<Repo>) {
     Thread {
-      val bRepos = mutableListOf<BRepo>()
       repos.forEach {
         bRepos.add(
           BRepo(
@@ -39,7 +32,6 @@ object ShareModel {
           )
         )
       }
-      reposSparseArray.append(reposPageKey.getAndIncrement(), bRepos)
     }.start()
   }
 

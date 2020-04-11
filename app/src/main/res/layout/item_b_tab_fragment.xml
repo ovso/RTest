@@ -8,19 +8,32 @@
     android:clickable="true"
     android:focusable="true">
 
-    <TextView
-        android:id="@+id/tv_a_tab_item"
-        android:layout_width="match_parent"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_b_tab_item"
+        android:layout_width="?actionBarSize"
         android:layout_height="?actionBarSize"
-        android:gravity="center_vertical"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="name, description, stargazers_count" />
+        tools:srcCompat="@drawable/ic_launcher_background" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_b_tab_item"
+        android:layout_width="?actionBarSize"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="@id/iv_b_tab_item"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@id/iv_b_tab_item"
+        app:layout_constraintTop_toTopOf="@id/iv_b_tab_item"
+        tools:text="name" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_a_tab_item"
+        android:id="@+id/rv_b_tab_item"
         android:layout_width="0dp"
         android:layout_height="?actionBarSize"
         android:layout_marginTop="10dp"
@@ -28,8 +41,9 @@
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_a_tab_item"
+        app:layout_constraintTop_toBottomOf="@id/tv_b_tab_item"
         tools:layout_height="?actionBarSize"
         tools:listitem="@layout/item_a_tab_fragment_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>

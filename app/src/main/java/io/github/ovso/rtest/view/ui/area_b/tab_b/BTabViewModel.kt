@@ -39,7 +39,8 @@ class BTabViewModel(private val owner: LifecycleOwner) : DisposableViewModel() {
           id = entity.id,
           avatarUrl = entity.avatarUrl,
           login = entity.login,
-          repoName = entity.repoName
+          repoName = entity.repoName,
+          repoAvatarUrl = entity.repoAvatarUrl
         )
       )
     }

@@ -9,14 +9,15 @@ import io.github.ovso.rtest.data.db.model.StargazerEntity
 object ShareModel {
 
   @WorkerThread
-  fun addStargazers(stargazers: List<Stargazer>, repoName: String) {
+  fun addStargazers(stargazers: List<Stargazer>, repoName: String, repoAvatarUrl: String) {
     val repoEntities = mutableListOf<StargazerEntity>()
     stargazers.forEach {
       val stargazerEntity = StargazerEntity(
         avatarUrl = it.avatarUrl,
         id = it.id,
         login = it.login,
-        repoName = repoName
+        repoName = repoName,
+        repoAvatarUrl = repoAvatarUrl
       )
       repoEntities.add(stargazerEntity)
     }

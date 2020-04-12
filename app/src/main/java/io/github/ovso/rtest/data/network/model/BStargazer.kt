@@ -9,5 +9,6 @@ data class BStargazer(
   val id: Int,
   @SerializedName("login")
   val login: String,
-  val repoName: String
+  val repoName: String,
+  val repoAvatarUrl: String
 )

@@ -41,12 +41,12 @@ class BTabViewHolder private constructor(override val containerView: View?) :
   private fun observe(bStargazer: BStargazer) {
     getLifecycleOwner(itemView)?.let { lifecycleOwner ->
 
-      App.appDb.stargazers().stargazers(bStargazer.repoName)
+      App.appDb.stargazers().stargazers(bStargazer.login)
         .observe(lifecycleOwner, Observer { entityList ->
           val bTabItemModels = mutableListOf<BTabItemModel>()
           entityList.forEach {
             bTabItemModels.add(
-              BTabItemModel(name = it.repoName, avatar_url = "")
+              BTabItemModel(name = it.repoName, avatar_url = it.repoAvatarUrl)
             )
           }
           adapter?.submitList(bTabItemModels)

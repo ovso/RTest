@@ -9,5 +9,6 @@ data class StargazerEntity(
   val avatarUrl: String,
   val id: Int,
   val login: String,
-  val repoName:String
+  val repoName:String,
+  val repoAvatarUrl:String
 )

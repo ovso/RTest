@@ -29,7 +29,8 @@ class BStargazersDataSource(
                 id = entity.id,
                 avatarUrl = entity.avatarUrl,
                 login = entity.login,
-                repoName = ""
+                repoName = "",
+                repoAvatarUrl = ""
               )
             )
           }

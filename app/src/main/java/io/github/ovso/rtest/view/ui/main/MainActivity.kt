@@ -3,6 +3,7 @@ package io.github.ovso.rtest.view.ui.main
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import io.github.ovso.rtest.R
+import io.github.ovso.rtest.data.network.User
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -24,4 +25,8 @@ class MainActivity : AppCompatActivity() {
     }
   }
 
+  override fun onDestroy() {
+    super.onDestroy()
+    User.clear()
+  }
 }

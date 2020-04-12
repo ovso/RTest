@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.Query
 
 @Dao
-interface ReposDao {
+interface RepoDao {
   @Insert
   fun insert(repo: RepoEntity)
 

@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import io.github.ovso.rtest.App
 import io.github.ovso.rtest.R
 import kotlinx.android.synthetic.main.fragment_tab_b.*
+import timber.log.Timber
 
 class BTabFragment : Fragment() {
 
@@ -30,5 +33,15 @@ class BTabFragment : Fragment() {
     super.onActivityCreated(savedInstanceState)
     viewModel = ViewModelProvider(this).get(BTabViewModel::class.java)
     rv_b_tab.adapter = adapter
+
+    App.appDb.repos().repos2().observe(viewLifecycleOwner, Observer {
+      Timber.d("observe = ${it.count()}")
+      println("ThreadName = ${Thread.currentThread().name}")
+    })
+  }
+
+  override fun onDestroyView() {
+    super.onDestroyView()
+    Thread { App.appDb.repos().removeAll() }.start()
   }
 }

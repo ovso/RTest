@@ -39,8 +39,4 @@ class MainActivity : AppCompatActivity() {
     }
   }
 
-  override fun onDestroy() {
-    super.onDestroy()
-    Thread { App.appDb.repos().removeAll() }.start()
-  }
 }

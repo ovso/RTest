@@ -1,11 +1,12 @@
 package io.github.ovso.rtest.view.ui.area_b.tab_b
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import io.github.ovso.rtest.App
 import io.github.ovso.rtest.data.datasource.BStargazersDataSourceFactory
+import io.github.ovso.rtest.data.db.model.RepoEntity
 import io.github.ovso.rtest.data.network.model.BStargazer
-import io.github.ovso.rtest.utils.rx.SchedulerProvider
 import io.github.ovso.rtest.view.base.DisposableViewModel
 import timber.log.Timber
 
@@ -20,10 +21,10 @@ class BTabViewModel : DisposableViewModel() {
   }
 
   private fun observe() {
-    App.appDb.repos().repos2().observeForever {
-      Timber.d("observe = ${it.count()}")
-      println("ThreadName = ${Thread.currentThread().name}")
-    }
+//    App.appDb.repos().repos2().observeForever(Observer {
+//      Timber.d("observe = ${it.count()}")
+//      println("ThreadName = ${Thread.currentThread().name}")
+//    })
   }
 
 /*

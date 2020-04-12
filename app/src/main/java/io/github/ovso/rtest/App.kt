@@ -11,6 +11,7 @@ class App : Application() {
     super.onCreate()
     Timber.plant(Timber.DebugTree())
     appDb = Room.databaseBuilder(this, AppDatabase::class.java, "github-repo").build()
+    Thread { appDb.repos().removeAll() }.start()
   }
 
   companion object {

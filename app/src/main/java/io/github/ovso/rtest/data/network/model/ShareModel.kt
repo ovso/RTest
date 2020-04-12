@@ -3,23 +3,22 @@ package io.github.ovso.rtest.data.network.model
 import io.github.ovso.rtest.App
 import io.github.ovso.rtest.data.db.model.OwnerEntity
 import io.github.ovso.rtest.data.db.model.RepoEntity
+import io.github.ovso.rtest.data.db.model.StargazerEntiry
 
 object ShareModel {
 
-  val bStargazers = mutableListOf<BStargazer>()
-  val bRepos = mutableListOf<BRepo>()
-
   fun addStargazers(stargazers: List<Stargazer>) {
     Thread {
+      val repoEntities = mutableListOf<StargazerEntiry>()
       stargazers.forEach {
-        bStargazers.add(
-          BStargazer(
-            avatarUrl = it.avatarUrl,
-            id = it.id,
-            login = it.login
-          )
+        val stargazerEntity = StargazerEntiry(
+          avatarUrl = it.avatarUrl,
+          id = it.id,
+          login = it.login
         )
+        repoEntities.add(stargazerEntity)
       }
+      App.appDb.stargazers().insert(repoEntities)
     }.start()
   }
 
@@ -39,6 +38,4 @@ object ShareModel {
       App.appDb.repos().insert(repoEntities)
     }.start()
   }
-
-  class LoadInitial
 }

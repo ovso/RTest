@@ -36,7 +36,11 @@ class BTabFragment : Fragment() {
     rv_b_tab.adapter = adapter
 
     App.appDb.repos().repos().observe(viewLifecycleOwner, Observer {
-      Timber.d("observe = ${it.count()}")
+      Timber.d("observe repos = ${it.count()}")
+      println("ThreadName = ${Thread.currentThread().name}")
+    })
+    App.appDb.stargazers().stargazers().observe(viewLifecycleOwner, Observer {
+      Timber.d("observe stargazers = ${it.count()}")
       println("ThreadName = ${Thread.currentThread().name}")
     })
   }

@@ -21,10 +21,10 @@ class StargazersDataSource(
     val pageKey = 1
     fun onSuccess(stargazers: List<Stargazer>) {
       callback.onResult(stargazers, pageKey, pageKey + 1)
-      ShareModel.addStargazers(stargazers)
     }
 
     compositeDisposable += repository.api().stargazers(User.name, repoName, pageKey, 30)
+      .map { ShareModel.addStargazers(it);it }
       .subscribeOn(SchedulerProvider.io())
       .observeOn(SchedulerProvider.ui())
       .subscribe(::onSuccess) { println(it) }
@@ -34,10 +34,10 @@ class StargazersDataSource(
 
     fun onSuccess(stargazers: List<Stargazer>) {
       callback.onResult(stargazers, params.key + 1)
-      ShareModel.addStargazers(stargazers)
     }
 
     compositeDisposable += repository.api().stargazers(User.name, repoName, params.key, 50)
+      .map { ShareModel.addStargazers(it);it }
       .subscribeOn(SchedulerProvider.io())
       .observeOn(SchedulerProvider.ui())
       .subscribe(::onSuccess) { println(it) }

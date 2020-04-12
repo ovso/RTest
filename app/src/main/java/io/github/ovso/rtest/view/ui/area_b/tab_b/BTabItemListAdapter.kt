@@ -17,23 +17,6 @@ val bTabItemDiffUti = object : DiffUtil.ItemCallback<BTabItemModel>() {
   }
 }
 
-/*
-class BTabItemPagedListAdapter : PagedListAdapter<Stargazer, BTabItemViewHolder>(bTabItemDiffUti) {
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BTabItemViewHolder {
-    return BTabItemViewHolder.create(parent)
-  }
-
-  override fun onBindViewHolder(holder: BTabItemViewHolder, position: Int) {
-    holder.bind(getItem(position))
-  }
-
-  override fun onViewRecycled(holder: BTabItemViewHolder) {
-    super.onViewRecycled(holder)
-    holder.onViewRecycled()
-  }
-}
-*/
-
 class BTabItemListAdapter : ListAdapter<BTabItemModel, BTabItemViewHolder>(bTabItemDiffUti) {
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BTabItemViewHolder {
     return BTabItemViewHolder.create(parent)

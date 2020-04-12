@@ -43,7 +43,7 @@ class AAreaViewModel : DisposableViewModel() {
     }
   }
 
-  private fun reqUserRepos(userName:String) {
+  private fun reqUserRepos(userName: String) {
     fun onSuccess(repos: List<Repo>) {
       if (repos.isNullOrEmpty()) {
         message.value = R.string.empty_data

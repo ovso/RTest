@@ -15,23 +15,8 @@ interface GithubService {
     @Query("per_page") per_page: Int = 3
   ): Single<List<Repo>>
 
-  @GET("/users/{user}/repos")
-  fun userRepos2(
-    @Path("user") user: String,
-    @Query("page") page: Int = 1,
-    @Query("per_page") per_page: Int = 3
-  ): Single<List<Repo>>
-
   @GET("/repos/{user}/{repo}/stargazers")
   fun stargazers(
-    @Path("user") user: String,
-    @Path("repo") repo: String,
-    @Query("page") page: Int = 1,
-    @Query("per_page") per_page: Int = 3
-  ): Single<List<Stargazer>>
-
-  @GET("/repos/{user}/{repo}/stargazers")
-  fun stargazers2(
     @Path("user") user: String,
     @Path("repo") repo: String,
     @Query("page") page: Int = 1,

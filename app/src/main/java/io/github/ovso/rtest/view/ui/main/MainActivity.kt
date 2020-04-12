@@ -6,10 +6,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.viewpager.widget.ViewPager
+import io.github.ovso.rtest.App
 import io.github.ovso.rtest.R
 import io.github.ovso.rtest.data.network.model.ShareModel
 import io.github.ovso.rtest.utils.rx.RxBus
 import kotlinx.android.synthetic.main.activity_main.*
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,5 +37,10 @@ class MainActivity : AppCompatActivity() {
       tl_main.setupWithViewPager(this)
 
     }
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    Thread { App.appDb.repos().removeAll() }.start()
   }
 }

@@ -24,18 +24,20 @@ object ShareModel {
   }
 
   fun addRepos(repos: List<Repo>) {
-    val repoEntities = mutableListOf<RepoEntity>()
-    repos.forEach {
-      val repoEntity = RepoEntity(
-        id = it.id,
-        name = it.name,
-        description = it.description,
-        stargazers_count = it.stargazers_count,
-        owner = OwnerEntity(it.owner.avatar_url)
-      )
-      repoEntities.add(repoEntity)
-    }
-    App.appDb.repos().insert(repoEntities)
+    Thread {
+      val repoEntities = mutableListOf<RepoEntity>()
+      repos.forEach {
+        val repoEntity = RepoEntity(
+          id = it.id,
+          name = it.name,
+          description = it.description,
+          stargazers_count = it.stargazers_count,
+          owner = OwnerEntity(it.owner.avatar_url)
+        )
+        repoEntities.add(repoEntity)
+      }
+      App.appDb.repos().insert(repoEntities)
+    }.start()
   }
 
   class LoadInitial

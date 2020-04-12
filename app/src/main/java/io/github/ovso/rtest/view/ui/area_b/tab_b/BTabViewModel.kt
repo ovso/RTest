@@ -1,15 +1,13 @@
 package io.github.ovso.rtest.view.ui.area_b.tab_b
 
 import androidx.lifecycle.LiveData
-import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import io.github.ovso.rtest.App
 import io.github.ovso.rtest.data.datasource.BStargazersDataSourceFactory
 import io.github.ovso.rtest.data.network.model.BStargazer
-import io.github.ovso.rtest.data.network.model.ShareModel
-import io.github.ovso.rtest.exts.plusAssign
-import io.github.ovso.rtest.utils.rx.RxBus
 import io.github.ovso.rtest.utils.rx.SchedulerProvider
 import io.github.ovso.rtest.view.base.DisposableViewModel
+import timber.log.Timber
 
 class BTabViewModel : DisposableViewModel() {
 
@@ -18,9 +16,17 @@ class BTabViewModel : DisposableViewModel() {
   var bStargazerList: LiveData<PagedList<BStargazer>>? = null
 
   init {
-//    observe()
+    observe()
   }
 
+  private fun observe() {
+    App.appDb.repos().repos2().observeForever {
+      Timber.d("observe = ${it.count()}")
+      println("ThreadName = ${Thread.currentThread().name}")
+    }
+  }
+
+/*
   private fun observe() {
     compositeDisposable += RxBus
       .toObservable()
@@ -36,6 +42,7 @@ class BTabViewModel : DisposableViewModel() {
         }
       }
   }
+*/
 
   fun getItems(): LiveData<PagedList<BStargazer>>? = bStargazerList
 }

@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class RepoEntity(
   @PrimaryKey val id: Int,
   val name: String,
-  val description: String,
+  val description: String?,
   val stargazers_count: Int,
   @Embedded val owner: OwnerEntity?
 )

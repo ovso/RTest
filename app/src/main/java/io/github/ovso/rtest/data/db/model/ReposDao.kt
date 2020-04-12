@@ -9,6 +9,9 @@ interface ReposDao {
   @Insert
   fun insert(repo: RepoEntity)
 
+  @Insert
+  fun insert(repos: List<RepoEntity>)
+
   @Query("delete from repos")
   fun removeAll()
 

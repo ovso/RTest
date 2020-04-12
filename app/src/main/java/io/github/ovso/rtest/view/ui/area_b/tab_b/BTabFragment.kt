@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import io.github.ovso.rtest.App
 import io.github.ovso.rtest.R
 import kotlinx.android.synthetic.main.fragment_tab_b.*
+import timber.log.Timber
 
 class BTabFragment : Fragment() {
 

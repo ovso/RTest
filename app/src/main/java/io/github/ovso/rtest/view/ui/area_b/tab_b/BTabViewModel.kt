@@ -1,49 +1,55 @@
 package io.github.ovso.rtest.view.ui.area_b.tab_b
 
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.paging.PagedList
 import io.github.ovso.rtest.App
-import io.github.ovso.rtest.data.datasource.BStargazersDataSourceFactory
-import io.github.ovso.rtest.data.db.model.RepoEntity
+import io.github.ovso.rtest.data.db.model.StargazerEntiry
 import io.github.ovso.rtest.data.network.model.BStargazer
+import io.github.ovso.rtest.exts.clearDb
+import io.github.ovso.rtest.exts.plusAssign
+import io.github.ovso.rtest.utils.rx.SchedulerProvider
 import io.github.ovso.rtest.view.base.DisposableViewModel
-import timber.log.Timber
+import io.reactivex.rxjava3.core.Single
 
-class BTabViewModel : DisposableViewModel() {
-
-  private var sourceFactory: BStargazersDataSourceFactory =
-    BStargazersDataSourceFactory(compositeDisposable)
-  var bStargazerList: LiveData<PagedList<BStargazer>>? = null
+class BTabViewModel(private val owner: LifecycleOwner) : DisposableViewModel() {
 
   init {
     observe()
   }
 
   private fun observe() {
-//    App.appDb.repos().repos2().observeForever(Observer {
-//      Timber.d("observe = ${it.count()}")
-//      println("ThreadName = ${Thread.currentThread().name}")
-//    })
+    App.appDb.stargazers().stargazers().observe(owner, Observer {
+      compositeDisposable += Single.fromCallable { toBStargazers(it) }
+        .subscribeOn(SchedulerProvider.io())
+        .observeOn(SchedulerProvider.ui())
+        .subscribe({
+          bStargazerList.value = it
+        }, {})
+
+    })
   }
 
-/*
-  private fun observe() {
-    compositeDisposable += RxBus
-      .toObservable()
-      .observeOn(SchedulerProvider.ui())
-      .subscribe {
-        if (it is ShareModel.LoadInitial && ShareModel.bStargazers.count() > 0) {
-          val config = PagedList.Config.Builder()
-            .setPageSize(30)
-            .setInitialLoadSizeHint(30)
-            .setEnablePlaceholders(false)
-            .build()
-          bStargazerList = LivePagedListBuilder(sourceFactory, config).build()
-        }
-      }
+  private fun toBStargazers(stargazerEntities: List<StargazerEntiry>): List<BStargazer> {
+    val listOf = mutableListOf<BStargazer>()
+    stargazerEntities.forEach { entity ->
+      listOf.add(
+        BStargazer(
+          id = entity.id,
+          avatarUrl = entity.avatarUrl,
+          login = entity.login
+        )
+      )
+    }
+    return listOf
   }
-*/
 
-  fun getItems(): LiveData<PagedList<BStargazer>>? = bStargazerList
+  private val bStargazerList = MutableLiveData<List<BStargazer>>()
+  fun getItems(): LiveData<List<BStargazer>> = bStargazerList
+
+  override fun onCleared() {
+    super.onCleared()
+    clearDb()
+  }
 }

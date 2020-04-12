@@ -6,12 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import io.github.ovso.rtest.App
 import io.github.ovso.rtest.R
-import io.github.ovso.rtest.exts.clearDb
 import kotlinx.android.synthetic.main.fragment_tab_b.*
-import timber.log.Timber
 
 class BTabFragment : Fragment() {
 
@@ -19,7 +17,7 @@ class BTabFragment : Fragment() {
     fun newInstance() = BTabFragment()
   }
 
-  private val adapter by lazy { BTabPagedListAdapter() }
+  private val adapter by lazy { BTabListAdapter() }
   private lateinit var viewModel: BTabViewModel
 
   override fun onCreateView(
@@ -32,21 +30,23 @@ class BTabFragment : Fragment() {
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-    viewModel = ViewModelProvider(this).get(BTabViewModel::class.java)
+    viewModel = getViewModel()
     rv_b_tab.adapter = adapter
+    observe()
+  }
 
-    App.appDb.repos().repos().observe(viewLifecycleOwner, Observer {
-      Timber.d("observe repos = ${it.count()}")
-      println("ThreadName = ${Thread.currentThread().name}")
-    })
-    App.appDb.stargazers().stargazers().observe(viewLifecycleOwner, Observer {
-      Timber.d("observe stargazers = ${it.count()}")
-      println("ThreadName = ${Thread.currentThread().name}")
+  private fun observe() {
+    viewModel.getItems()?.observe(viewLifecycleOwner, Observer {
+      adapter.submitList(it)
     })
   }
 
-  override fun onDestroyView() {
-    super.onDestroyView()
-    clearDb()
+  private fun getViewModel(): BTabViewModel {
+    return ViewModelProvider(this, object : ViewModelProvider.Factory {
+      override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        @Suppress("UNCHECKED_CAST")
+        return BTabViewModel(viewLifecycleOwner) as T
+      }
+    })[BTabViewModel::class.java]
   }
 }

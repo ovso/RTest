@@ -1,19 +1,12 @@
 package io.github.ovso.rtest.view.ui.area_b.tab_b
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
 import io.github.ovso.rtest.R
-import io.github.ovso.rtest.data.datasource.StargazersDataSourceFactory
-import io.github.ovso.rtest.data.network.GithubRepository
 import io.github.ovso.rtest.data.network.model.BStargazer
-import io.github.ovso.rtest.data.network.model.Repo
 import io.github.ovso.rtest.exts.load
 import io.github.ovso.rtest.utils.rx.RxBus
 import io.github.ovso.rtest.view.ui.area_a.AAreaViewModel
@@ -25,7 +18,6 @@ class BTabViewHolder private constructor(override val containerView: View?) :
   RecyclerView.ViewHolder(containerView!!),
   LayoutContainer {
   private val compositeDisposable = CompositeDisposable()
-  private val repository = GithubRepository()
   private var adapter: BTabItemPagedListAdapter? = null
 
   fun bind(bStargazer: BStargazer?) {
@@ -64,10 +56,6 @@ class BTabViewHolder private constructor(override val containerView: View?) :
           false
         )
       )
-    }
-
-    fun toColor(repo: Repo): Int {
-      return if (repo.stargazers_count > 50) Color.RED else Color.DKGRAY
     }
   }
 }

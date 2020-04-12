@@ -1,8 +1,8 @@
 package io.github.ovso.rtest.view.ui.area_b.tab_b
 
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import io.github.ovso.rtest.data.network.model.BStargazer
 
 val bTabDiffUtil = object : DiffUtil.ItemCallback<BStargazer>() {
@@ -14,8 +14,7 @@ val bTabDiffUtil = object : DiffUtil.ItemCallback<BStargazer>() {
     return areItemsTheSame(oldItem, newItem)
   }
 }
-
-class BTabPagedListAdapter : PagedListAdapter<BStargazer, BTabViewHolder>(bTabDiffUtil) {
+class BTabListAdapter : ListAdapter<BStargazer, BTabViewHolder>(bTabDiffUtil) {
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BTabViewHolder {
     return BTabViewHolder.create(parent)
   }

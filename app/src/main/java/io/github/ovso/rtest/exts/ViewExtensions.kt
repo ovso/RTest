@@ -9,6 +9,6 @@ fun View.appContext(): Context {
   return context.applicationContext
 }
 
-fun ImageView.load(url: String) {
-  Glide.with(this).load(url).into(this)
+fun ImageView.load(o: Any) {
+  Glide.with(this).load(o).into(this)
 }

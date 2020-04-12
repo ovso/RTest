@@ -16,8 +16,8 @@ class ATabViewModel : DisposableViewModel() {
   init {
     sourceFactory = ReposDataSourceFactory(compositeDisposable, repository)
     val config = PagedList.Config.Builder()
-      .setPageSize(30)
-      .setInitialLoadSizeHint(30)
+      .setPageSize(20)
+      .setInitialLoadSizeHint(20)
       .setEnablePlaceholders(false)
       .build()
     repoList = LivePagedListBuilder(sourceFactory, config).build()

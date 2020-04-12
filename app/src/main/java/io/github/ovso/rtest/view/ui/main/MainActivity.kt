@@ -2,13 +2,8 @@ package io.github.ovso.rtest.view.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.viewpager.widget.ViewPager
 import io.github.ovso.rtest.R
-import io.github.ovso.rtest.data.network.model.ShareModel
-import io.github.ovso.rtest.utils.rx.RxBus
+import io.github.ovso.rtest.data.network.User
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -26,14 +21,12 @@ class MainActivity : AppCompatActivity() {
         resources.getStringArray(R.array.tab_names),
         supportFragmentManager
       )
-      addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
-        override fun onPageSelected(position: Int) {
-          super.onPageSelected(position)
-          if (position == 1) RxBus.send(ShareModel.LoadInitial())
-        }
-      })
       tl_main.setupWithViewPager(this)
-
     }
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    User.clear()
   }
 }

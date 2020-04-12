@@ -13,11 +13,14 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?android:attr/selectableItemBackground"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="@{() -> viewModel.onClick()}"
         tools:context=".view.ui.area_a.AAreaFragment">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_a_area"
-            img_url="@{viewModel.avatarUrl}"
+            img_url="@{viewModel.displayAvatarUrl}"
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -31,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:ellipsize="end"
-            android:text="@{viewModel.name}"
+            android:text="@{viewModel.displayName}"
             android:textColor="@android:color/darker_gray"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@id/iv_a_area"

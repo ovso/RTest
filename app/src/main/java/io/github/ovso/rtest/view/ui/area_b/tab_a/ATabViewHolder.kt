@@ -53,7 +53,7 @@ class ATabViewHolder private constructor(override val containerView: View?) :
   private fun getLifecycleOwner(v: View): LifecycleOwner? = (v.context as? LifecycleOwner)
 
   private fun reqStargazers(repo: Repo) {
-    val sourceFactory = StargazersDataSourceFactory(compositeDisposable, repository, repo.name)
+    val sourceFactory = StargazersDataSourceFactory(compositeDisposable, repository, repo.name, repo.owner.avatar_url)
     val config = PagedList.Config.Builder()
       .setPageSize(30)
       .setInitialLoadSizeHint(30)

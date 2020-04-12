@@ -12,7 +12,8 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 class StargazersDataSource(
   private val compositeDisposable: CompositeDisposable,
   private val repository: GithubRepository,
-  private val repoName: String
+  private val repoName: String,
+  private val repoAvatarUrl: String
 ) : PageKeyedDataSource<Int, Stargazer>() {
   override fun loadInitial(
     params: LoadInitialParams<Int>,
@@ -21,10 +22,10 @@ class StargazersDataSource(
     val pageKey = 1
     fun onSuccess(stargazers: List<Stargazer>) {
       callback.onResult(stargazers, pageKey, pageKey + 1)
-      ShareModel.addStargazers(stargazers)
     }
 
     compositeDisposable += repository.api().stargazers(User.name, repoName, pageKey, 30)
+      .map { ShareModel.addStargazers(it, repoName, repoName); it }
       .subscribeOn(SchedulerProvider.io())
       .observeOn(SchedulerProvider.ui())
       .subscribe(::onSuccess) { println(it) }
@@ -34,10 +35,10 @@ class StargazersDataSource(
 
     fun onSuccess(stargazers: List<Stargazer>) {
       callback.onResult(stargazers, params.key + 1)
-      ShareModel.addStargazers(stargazers)
     }
 
     compositeDisposable += repository.api().stargazers(User.name, repoName, params.key, 50)
+      .map { ShareModel.addStargazers(it, repoName, repoAvatarUrl); it }
       .subscribeOn(SchedulerProvider.io())
       .observeOn(SchedulerProvider.ui())
       .subscribe(::onSuccess) { println(it) }

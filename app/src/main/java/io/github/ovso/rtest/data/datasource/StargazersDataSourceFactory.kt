@@ -8,10 +8,11 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 class StargazersDataSourceFactory(
   private val compositeDisposable: CompositeDisposable,
   private val repository: GithubRepository,
-  private val repoName: String
+  private val repoName: String,
+  private val repoAvatarUrl: String
 ) : DataSource.Factory<Int, Stargazer>() {
 
   override fun create(): DataSource<Int, Stargazer> {
-    return StargazersDataSource(compositeDisposable, repository, repoName)
+    return StargazersDataSource(compositeDisposable, repository, repoName, repoAvatarUrl)
   }
 }

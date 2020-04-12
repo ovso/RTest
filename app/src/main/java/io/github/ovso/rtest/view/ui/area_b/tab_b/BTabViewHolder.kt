@@ -15,6 +15,8 @@ import io.github.ovso.rtest.data.network.GithubRepository
 import io.github.ovso.rtest.data.network.model.BStargazer
 import io.github.ovso.rtest.data.network.model.Repo
 import io.github.ovso.rtest.exts.load
+import io.github.ovso.rtest.utils.rx.RxBus
+import io.github.ovso.rtest.view.ui.area_a.AAreaViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_b_tab_fragment.*
@@ -31,26 +33,22 @@ class BTabViewHolder private constructor(override val containerView: View?) :
     bStargazer?.let {
       tv_b_tab_item.text = it.login
       iv_b_tab_item.load(it.avatarUrl)
-//      rv_a_tab_item.adapter = adapter
-//      reqStargazers(bStargazer)
+      setClickEvent(it)
+    }
+  }
+
+  private fun setClickEvent(bStargazer: BStargazer) {
+    itemView.setOnClickListener {
+      RxBus.send(
+        AAreaViewModel.AAreaModel(
+          avatarUrl = bStargazer.avatarUrl,
+          name = bStargazer.login
+        )
+      )
     }
   }
 
   private fun getLifecycleOwner(v: View): LifecycleOwner? = (v.context as? LifecycleOwner)
-
-  private fun reqStargazers(repo: Repo) {
-    val sourceFactory = StargazersDataSourceFactory(compositeDisposable, repository, repo.name)
-    val config = PagedList.Config.Builder()
-      .setPageSize(30)
-      .setInitialLoadSizeHint(30)
-      .setEnablePlaceholders(false)
-      .build()
-    getLifecycleOwner(itemView)?.let { owner ->
-      LivePagedListBuilder(sourceFactory, config).build().observe(owner, Observer {
-        adapter?.submitList(it)
-      })
-    }
-  }
 
   fun onViewRecycled() {
     compositeDisposable.clear()

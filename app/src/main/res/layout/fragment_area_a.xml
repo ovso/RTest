@@ -13,6 +13,9 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?android:attr/selectableItemBackground"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="@{() -> viewModel.onClick()}"
         tools:context=".view.ui.area_a.AAreaFragment">
 
         <androidx.appcompat.widget.AppCompatImageView

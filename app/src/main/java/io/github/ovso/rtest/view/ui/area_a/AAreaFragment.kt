@@ -1,14 +1,18 @@
 package io.github.ovso.rtest.view.ui.area_a
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import io.github.ovso.rtest.R
+import io.github.ovso.rtest.data.network.User
 import io.github.ovso.rtest.databinding.FragmentAreaABinding
+import io.github.ovso.rtest.view.ui.main.MainActivity
 
 class AAreaFragment : Fragment() {
 
@@ -32,5 +36,18 @@ class AAreaFragment : Fragment() {
       viewModel = owner.viewModel
       lifecycleOwner = owner
     }
+  }
+
+  override fun onActivityCreated(savedInstanceState: Bundle?) {
+    super.onActivityCreated(savedInstanceState)
+    observe()
+  }
+
+  private fun observe() {
+    viewModel.getNavigateToNewScreen().observe(viewLifecycleOwner, Observer {
+      User.name = it
+      startActivity(Intent(context, MainActivity::class.java))
+      requireActivity().finish()
+    })
   }
 }

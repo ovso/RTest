@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import io.github.ovso.rtest.App
 import io.github.ovso.rtest.R
+import io.github.ovso.rtest.exts.clearDb
 import kotlinx.android.synthetic.main.fragment_tab_b.*
 import timber.log.Timber
 
@@ -34,7 +35,7 @@ class BTabFragment : Fragment() {
     viewModel = ViewModelProvider(this).get(BTabViewModel::class.java)
     rv_b_tab.adapter = adapter
 
-    App.appDb.repos().repos2().observe(viewLifecycleOwner, Observer {
+    App.appDb.repos().repos().observe(viewLifecycleOwner, Observer {
       Timber.d("observe = ${it.count()}")
       println("ThreadName = ${Thread.currentThread().name}")
     })
@@ -42,6 +43,6 @@ class BTabFragment : Fragment() {
 
   override fun onDestroyView() {
     super.onDestroyView()
-    Thread { App.appDb.repos().removeAll() }.start()
+    clearDb()
   }
 }

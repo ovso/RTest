@@ -17,8 +17,5 @@ interface RepoDao {
   fun removeAll()
 
   @Query("SELECT * FROM repos")
-  fun repos(): List<RepoEntity>
-
-  @Query("SELECT * FROM repos")
-  fun repos2(): LiveData<List<RepoEntity>>
+  fun repos(): LiveData<List<RepoEntity>>
 }

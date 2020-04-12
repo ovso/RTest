@@ -3,6 +3,7 @@ package io.github.ovso.rtest
 import android.app.Application
 import androidx.room.Room
 import io.github.ovso.rtest.data.db.AppDatabase
+import io.github.ovso.rtest.exts.clearDb
 import timber.log.Timber
 
 class App : Application() {
@@ -11,7 +12,7 @@ class App : Application() {
     super.onCreate()
     Timber.plant(Timber.DebugTree())
     appDb = Room.databaseBuilder(this, AppDatabase::class.java, "github-repo").build()
-    Thread { appDb.repos().removeAll() }.start()
+    clearDb()
   }
 
   companion object {

@@ -38,7 +38,8 @@ class BTabViewModel(private val owner: LifecycleOwner) : DisposableViewModel() {
         BStargazer(
           id = entity.id,
           avatarUrl = entity.avatarUrl,
-          login = entity.login
+          login = entity.login,
+          repoName = entity.repoName
         )
       )
     }

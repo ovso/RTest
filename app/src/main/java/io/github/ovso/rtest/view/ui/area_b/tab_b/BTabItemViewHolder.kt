@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import io.github.ovso.rtest.R
 import io.github.ovso.rtest.data.network.model.Stargazer
+import io.github.ovso.rtest.data.view.BTabItemModel
 import io.github.ovso.rtest.exts.load
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_a_tab_fragment_item.*
@@ -13,11 +14,9 @@ import kotlinx.android.synthetic.main.item_a_tab_fragment_item.*
 class BTabItemViewHolder private constructor(override val containerView: View?) :
   RecyclerView.ViewHolder(containerView!!), LayoutContainer {
 
-  fun bind(stargazer: Stargazer?) {
-    stargazer?.let {
-      iv_a_tab_item_item.load(stargazer.avatarUrl)
-      tv_a_tab_item_item.text = stargazer.login
-    }
+  fun bind(bTabItemModel: BTabItemModel) {
+    iv_a_tab_item_item.load(bTabItemModel.avatar_url)
+    tv_a_tab_item_item.text = bTabItemModel.name
   }
 
   fun onViewRecycled() {

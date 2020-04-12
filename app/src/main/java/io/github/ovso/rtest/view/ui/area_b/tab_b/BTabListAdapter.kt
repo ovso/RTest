@@ -1,8 +1,6 @@
 package io.github.ovso.rtest.view.ui.area_b.tab_b
 
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import io.github.ovso.rtest.data.network.model.BStargazer
 

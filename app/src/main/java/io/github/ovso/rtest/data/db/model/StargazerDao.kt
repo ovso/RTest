@@ -18,4 +18,7 @@ interface StargazerDao {
 
   @Query("SELECT * FROM stargazers")
   fun stargazers(): LiveData<List<StargazerEntiry>>
+
+  @Query("SELECT distinct * FROM stargazers WHERE repoName LIKE :repoName")
+  fun stargazers(repoName: String): LiveData<List<StargazerEntiry>>
 }

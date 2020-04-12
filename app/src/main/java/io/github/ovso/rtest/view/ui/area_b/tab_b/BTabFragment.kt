@@ -36,7 +36,7 @@ class BTabFragment : Fragment() {
   }
 
   private fun observe() {
-    viewModel.getItems()?.observe(viewLifecycleOwner, Observer {
+    viewModel.getItems().observe(viewLifecycleOwner, Observer {
       adapter.submitList(it)
     })
   }

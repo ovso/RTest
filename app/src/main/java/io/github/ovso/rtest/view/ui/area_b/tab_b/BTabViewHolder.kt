@@ -46,7 +46,7 @@ class BTabViewHolder private constructor(override val containerView: View?) :
           val bTabItemModels = mutableListOf<BTabItemModel>()
           entityList.forEach {
             bTabItemModels.add(
-              BTabItemModel(it.repoName, "")
+              BTabItemModel(name = it.repoName, avatar_url = "")
             )
           }
           adapter?.submitList(bTabItemModels)

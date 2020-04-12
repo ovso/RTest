@@ -5,9 +5,9 @@ import androidx.room.RoomDatabase
 import io.github.ovso.rtest.data.db.model.RepoEntity
 import io.github.ovso.rtest.data.db.model.RepoDao
 import io.github.ovso.rtest.data.db.model.StargazerDao
-import io.github.ovso.rtest.data.db.model.StargazerEntiry
+import io.github.ovso.rtest.data.db.model.StargazerEntity
 
-@Database(entities = [RepoEntity::class, StargazerEntiry::class], version = 1)
+@Database(entities = [RepoEntity::class, StargazerEntity::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
   abstract fun repos(): RepoDao
   abstract fun stargazers(): StargazerDao

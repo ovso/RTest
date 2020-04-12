@@ -8,17 +8,17 @@ import androidx.room.Query
 @Dao
 interface StargazerDao {
   @Insert
-  fun insert(stargazer: StargazerEntiry)
+  fun insert(stargazer: StargazerEntity)
 
   @Insert
-  fun insert(stargazers: List<StargazerEntiry>)
+  fun insert(stargazers: List<StargazerEntity>)
 
   @Query("delete from stargazers")
   fun removeAll()
 
   @Query("SELECT * FROM stargazers")
-  fun stargazers(): LiveData<List<StargazerEntiry>>
+  fun stargazers(): LiveData<List<StargazerEntity>>
 
-  @Query("SELECT distinct * FROM stargazers WHERE repoName LIKE :repoName")
-  fun stargazers(repoName: String): LiveData<List<StargazerEntiry>>
+  @Query("SELECT * FROM stargazers WHERE login LIKE :login")
+  fun stargazers(login: String): LiveData<List<StargazerEntity>>
 }

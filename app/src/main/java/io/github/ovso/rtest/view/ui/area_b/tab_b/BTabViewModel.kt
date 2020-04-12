@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import io.github.ovso.rtest.App
-import io.github.ovso.rtest.data.db.model.StargazerEntiry
+import io.github.ovso.rtest.data.db.model.StargazerEntity
 import io.github.ovso.rtest.data.network.model.BStargazer
 import io.github.ovso.rtest.exts.clearDb
 import io.github.ovso.rtest.exts.plusAssign
@@ -31,7 +31,7 @@ class BTabViewModel(private val owner: LifecycleOwner) : DisposableViewModel() {
     })
   }
 
-  private fun toBStargazers(stargazerEntities: List<StargazerEntiry>): List<BStargazer> {
+  private fun toBStargazers(stargazerEntities: List<StargazerEntity>): List<BStargazer> {
     val listOf = mutableListOf<BStargazer>()
     stargazerEntities.forEach { entity ->
       listOf.add(

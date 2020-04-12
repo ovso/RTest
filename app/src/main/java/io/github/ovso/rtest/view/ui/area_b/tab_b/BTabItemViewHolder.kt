@@ -10,13 +10,14 @@ import io.github.ovso.rtest.data.view.BTabItemModel
 import io.github.ovso.rtest.exts.load
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_a_tab_fragment_item.*
+import kotlinx.android.synthetic.main.item_b_tab_fragment_item.*
 
 class BTabItemViewHolder private constructor(override val containerView: View?) :
   RecyclerView.ViewHolder(containerView!!), LayoutContainer {
 
   fun bind(bTabItemModel: BTabItemModel) {
-    iv_a_tab_item_item.load(bTabItemModel.avatar_url)
-    tv_a_tab_item_item.text = bTabItemModel.name
+    iv_b_tab_item_item.load(bTabItemModel.avatar_url)
+    tv_b_tab_item_item.text = bTabItemModel.name
   }
 
   fun onViewRecycled() {
@@ -27,7 +28,7 @@ class BTabItemViewHolder private constructor(override val containerView: View?) 
     fun create(parent: ViewGroup): BTabItemViewHolder {
       return BTabItemViewHolder(
         LayoutInflater.from(parent.context)
-          .inflate(R.layout.item_a_tab_fragment_item, parent, false)
+          .inflate(R.layout.item_b_tab_fragment_item, parent, false)
       )
     }
   }

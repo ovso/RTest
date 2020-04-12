@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "stargazers")
-data class StargazerEntiry(
+data class StargazerEntity(
   @PrimaryKey(autoGenerate = true) val db_id: Int = 0,
   val avatarUrl: String,
   val id: Int,

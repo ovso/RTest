@@ -33,7 +33,6 @@ class BTabItemViewHolder private constructor(override val containerView: View?) 
   }
 
   fun onViewRecycled() {
-
   }
 
   companion object {

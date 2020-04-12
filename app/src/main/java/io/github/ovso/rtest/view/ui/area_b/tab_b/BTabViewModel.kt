@@ -27,7 +27,6 @@ class BTabViewModel(private val owner: LifecycleOwner) : DisposableViewModel() {
         .subscribe({
           bStargazerList.value = it
         }, {})
-
     })
   }
 

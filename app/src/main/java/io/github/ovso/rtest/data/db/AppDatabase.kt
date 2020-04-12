@@ -2,8 +2,8 @@ package io.github.ovso.rtest.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import io.github.ovso.rtest.data.db.model.RepoEntity
 import io.github.ovso.rtest.data.db.model.RepoDao
+import io.github.ovso.rtest.data.db.model.RepoEntity
 import io.github.ovso.rtest.data.db.model.StargazerDao
 import io.github.ovso.rtest.data.db.model.StargazerEntity
 

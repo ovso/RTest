@@ -24,7 +24,7 @@ class ReposDataSource(
     }
 
     compositeDisposable += repository.api().userRepos(User.name, pageKey, 30)
-      .map { ShareModel.addRepos(it);it }
+      .map { ShareModel.addRepos(it); it }
       .subscribeOn(SchedulerProvider.io())
       .observeOn(SchedulerProvider.ui())
       .subscribe(::onSuccess) { println(it) }
@@ -37,7 +37,7 @@ class ReposDataSource(
     }
 
     compositeDisposable += repository.api().userRepos(User.name, params.key, 50)
-      .map { ShareModel.addRepos(it);it }
+      .map { ShareModel.addRepos(it); it }
       .subscribeOn(SchedulerProvider.io())
       .observeOn(SchedulerProvider.ui())
       .subscribe(::onSuccess) { println(it) }

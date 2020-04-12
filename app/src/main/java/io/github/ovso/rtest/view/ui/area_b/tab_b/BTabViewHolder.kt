@@ -47,9 +47,7 @@ class BTabViewHolder private constructor(override val containerView: View?) :
           }
           adapter?.submitList(bTabItemModels)
         })
-
     }
-
   }
 
   private fun setClickEvent(bStargazer: BStargazer) {
@@ -62,7 +60,6 @@ class BTabViewHolder private constructor(override val containerView: View?) :
       )
     }
   }
-
 
   private fun getLifecycleOwner(v: View): LifecycleOwner? = (v.context as? LifecycleOwner)
 

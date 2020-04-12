@@ -24,7 +24,7 @@ class StargazersDataSource(
     }
 
     compositeDisposable += repository.api().stargazers(User.name, repoName, pageKey, 30)
-      .map { ShareModel.addStargazers(it);it }
+      .map { ShareModel.addStargazers(it, repoName);it }
       .subscribeOn(SchedulerProvider.io())
       .observeOn(SchedulerProvider.ui())
       .subscribe(::onSuccess) { println(it) }
@@ -37,7 +37,7 @@ class StargazersDataSource(
     }
 
     compositeDisposable += repository.api().stargazers(User.name, repoName, params.key, 50)
-      .map { ShareModel.addStargazers(it);it }
+      .map { ShareModel.addStargazers(it, repoName);it }
       .subscribeOn(SchedulerProvider.io())
       .observeOn(SchedulerProvider.ui())
       .subscribe(::onSuccess) { println(it) }

@@ -8,5 +8,6 @@ data class StargazerEntiry(
   @PrimaryKey(autoGenerate = true) val db_id: Int = 0,
   val avatarUrl: String,
   val id: Int,
-  val login: String
+  val login: String,
+  val repoName:String
 )
